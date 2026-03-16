@@ -1,2 +1,2 @@
 # padel-cerveja-app
-app for padel group
+app for PCT Padel Group Lisbon
