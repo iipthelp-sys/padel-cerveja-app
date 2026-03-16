@@ -374,7 +374,8 @@ select option{background:#181818}
 </div>
 
 <script>
-const ADMIN_WA = '447894983960'; // ← replace with real number
+const ADMIN_WA = '34600000000'; // ← replace with your WhatsApp number
+const APP_URL  = 'https://iipthelp-sys.github.io/padel-cerveja-app/'; // ← your live app URL
 
 // ══════════════════════════════════
 // STATE
@@ -520,7 +521,7 @@ function submitSignup() {
   if(pi) msg+=`\n*Partner Requested:* ${pi.fname} ${pi.lname}\n*(Awaiting confirmation)*\n`;
   msg+=`\n*ID:* ${pid}\n\nPlease confirm my spot! 🙏🍺`;
   if(pi){
-    const pMsg=`🎾 *PADEL CERVEJA & PETISCOS*\n\n🤝 *Partner Request!*\n\n*${fname} ${lname}* wants to pair up with you!\n\n*Event:* ${ev.name}\n*Date:* ${fmtDate(ev.date)}\n*Format:* ${ev.activeFormat}\n\nOpen the Padel app → Partners tab to accept.\n\nLet's play! 🍺`;
+    const pMsg=`🎾 *PADEL CERVEJA & PETISCOS*\n\n🤝 *You've been invited as a partner!*\n\n*${fname} ${lname}* wants to pair up with you!\n\n*Event:* ${ev.name}\n*Date:* ${fmtDate(ev.date)}\n*Format:* ${ev.activeFormat}\n${ev.prize?`*Prize:* ${ev.prize}\n`:''}\n━━━━━━━━━━━━━━━\n*To confirm your pair:*\n\n1️⃣ Open the app:\n${APP_URL}\n\n2️⃣ Tap the *Partners* tab\n\n3️⃣ Hit ✅ *Accept Pair*\n\nSee you on the court! 🍺🎾`;
     window.open(`https://wa.me/${pi.cc}${pi.phone}?text=${encodeURIComponent(pMsg)}`,'_blank');
     setTimeout(()=>window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,'_blank'),700);
   } else {
@@ -569,7 +570,7 @@ function respondPartner(reqId,response) {
   if(response==='accepted'){
     const ev=getEvent(req.eventId);
     if(ev){const reg=ev.registrations.find(r=>r.id===req.playerId);if(reg&&reg.partner){reg.partner.status='accepted';reg.pairConfirmed=true;}}
-    const msg=`✅ *PARTNER CONFIRMED!*\n\n${req.toName} accepted your partner request!\n\n*Event:* ${req.eventName}\n*Date:* ${fmtDate(req.eventDate)}\n\nYou're paired! See you on the court 🎾🍺`;
+    const msg=`✅ *PARTNER CONFIRMED!*\n\n${req.toName} accepted your partner request!\n\n*Event:* ${req.eventName}\n*Date:* ${fmtDate(req.eventDate)}\n\nYou're officially paired! 🤝\n\n👉 Check the lineup here:\n${APP_URL}\n\nSee you on the court 🎾🍺`;
     window.open(`https://wa.me/${req.fromPhone}?text=${encodeURIComponent(msg)}`,'_blank');
     toast('✅ Pair confirmed — WA notification sent!');
   } else { toast('Partner request declined'); }
