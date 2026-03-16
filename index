@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padel Cerveja &amp; Petiscos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0e0e0e; --surface:#181818; --s2:#212121; --s3:#2a2a2a;
+  --border:rgba(255,255,255,0.08);
+  --gold:#f5c518; --gold2:#ffe055; --gd:rgba(245,197,24,0.13); --gb:rgba(245,197,24,0.25);
+  --wa:#25D366;
+  --white:#f5f0e8; --gray:#887a68; --gray2:#504840;
+  --orange:#f0922a; --red:#f05a5a; --blue:#5aabf0; --green:#4ecf7a;
+  --r:16px; --rs:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 90% 5%,rgba(245,197,24,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 70% at 5% 95%,rgba(245,197,24,.04) 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.018) 59px,rgba(255,255,255,.018) 60px),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.018) 59px,rgba(255,255,255,.018) 60px);
+}
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(14,14,14,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(245,197,24,.18);display:flex;align-items:center;justify-content:space-between;padding:0 14px;height:62px;gap:8px}
+.nav-brand{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.nav-logo{width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.nav-text{display:flex;flex-direction:column;line-height:1.1}
+.nav-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--gold)}
+.nav-sub{font-size:8px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray)}
+.nav-tabs{display:flex;gap:2px}
+.nav-tab{background:none;border:none;color:var(--gray);font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;padding:5px 10px;border-radius:100px;cursor:pointer;transition:all .2s}
+.nav-tab.active{background:var(--gd);color:var(--gold)}
+.nav-tab:hover:not(.active){color:var(--white)}
+/* VIEWS */
+.view{display:none;position:relative;z-index:1;max-width:520px;margin:0 auto;padding:18px 14px 90px}
+.view.active{display:block}
+/* HERO */
+.hero{text-align:center;padding:18px 0 10px}
+.hero-svg{filter:drop-shadow(0 10px 40px rgba(245,197,24,.3));margin-bottom:2px}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,9vw,54px);line-height:.9;color:#fff;letter-spacing:2px;text-shadow:0 2px 24px rgba(245,197,24,.25)}
+.hero-title span{color:var(--gold);display:block;font-size:clamp(22px,5.5vw,34px);letter-spacing:4px}
+.hero-div{display:flex;align-items:center;gap:10px;margin:12px auto 7px;max-width:320px}
+.hero-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.35}
+.hero-div-pill{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);background:var(--gd);padding:4px 13px;border-radius:100px;border:1px solid var(--gb);white-space:nowrap}
+.hero p{font-size:11px;color:var(--gray);margin-top:4px}
+.vheader{text-align:center;padding:18px 0 10px}
+.vheader h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,9vw,54px);line-height:.9;color:#fff}
+.vheader h1 span{color:var(--gold);display:block}
+.vheader p{font-size:11px;color:var(--gray);margin-top:7px}
+/* MODE SWITCHER */
+.mode-row{display:flex;gap:8px;margin-bottom:16px}
+.mode-btn{flex:1;padding:13px 10px;border-radius:var(--r);cursor:pointer;transition:all .2s;background:var(--surface);border:1.5px solid var(--border);text-align:center}
+.mode-btn:hover{border-color:var(--gb);transform:translateY(-1px)}
+.mode-btn.active{border-color:var(--gold);background:var(--gd)}
+.mb-icon{font-size:24px;margin-bottom:3px}
+.mb-title{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;color:var(--gold)}
+.mb-sub{font-size:10px;color:var(--gray);margin-top:2px;line-height:1.3}
+/* SECTION LABEL */
+.slabel{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin:22px 0 9px}
+/* PILLS */
+.pills{display:flex;gap:7px;margin-bottom:16px}
+.pill{flex:1;background:var(--surface);border:1px solid rgba(245,197,24,.15);border-radius:var(--rs);padding:9px;text-align:center}
+.pill-val{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);line-height:1}
+.pill-lbl{font-size:9px;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+/* EVENT CARDS */
+.ecard{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:9px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.ecard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,197,24,.05),transparent 60%);opacity:0;transition:opacity .2s;pointer-events:none}
+.ecard:hover{border-color:var(--gb);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.5)}
+.ecard:hover::after,.ecard.sel::after{opacity:1}
+.ecard.sel{border-color:var(--gold);background:rgba(245,197,24,.06)}
+.ecard.locked{opacity:.4;cursor:not-allowed}
+.ec-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px}
+.ec-name{font-weight:700;font-size:15px}
+.ec-badges{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.badge{font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:3px 8px;border-radius:100px;white-space:nowrap}
+.b-open{background:rgba(245,197,24,.15);color:var(--gold)}
+.b-filling{background:rgba(240,146,42,.15);color:var(--orange)}
+.b-full{background:rgba(240,90,90,.15);color:var(--red)}
+.b-closed{background:rgba(136,122,104,.12);color:var(--gray)}
+.b-format{background:rgba(90,171,240,.14);color:var(--blue)}
+.b-game{background:rgba(78,207,122,.14);color:var(--green)}
+.b-tournament{background:rgba(245,197,24,.14);color:var(--gold)}
+.ec-meta{display:flex;flex-wrap:wrap;gap:7px;font-size:11px;color:var(--gray);margin-bottom:7px}
+.ec-courts{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.court-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;background:var(--gd);color:var(--gold);border:1px solid rgba(245,197,24,.2)}
+.ec-countdown{font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;background:var(--gd);color:var(--gold);display:inline-block;margin-bottom:5px}
+.ec-countdown.hot{background:rgba(240,146,42,.12);color:var(--orange)}
+.ec-bar{height:3px;background:rgba(255,255,255,.06);border-radius:10px;overflow:hidden;margin-bottom:4px}
+.ec-bar-fill{height:100%;border-radius:10px;transition:width .5s}
+.ec-bar-label{font-size:11px;color:var(--gray)}
+.ec-check{position:absolute;top:13px;right:13px;width:21px;height:21px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.5);transition:all .2s}
+.ecard.sel .ec-check{opacity:1;transform:scale(1)}
+/* FORM */
+.fbox{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;animation:up .3s ease}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ftitle{font-weight:700;font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.fg{margin-bottom:11px}
+.fg:last-child{margin-bottom:0}
+label{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-bottom:5px}
+input,select{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 12px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .2s;appearance:none}
+input:focus,select:focus{border-color:rgba(245,197,24,.5)}
+input::placeholder{color:rgba(255,255,255,.2)}
+select option{background:#181818}
+.phone-row{display:flex;gap:7px}
+.cc{width:90px;flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23887a68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;padding-right:24px}
+/* COURT TAGS */
+.court-tags-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px;min-height:26px}
+.court-tag{display:inline-flex;align-items:center;gap:5px;background:var(--gd);border:1px solid var(--gb);color:var(--gold);font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px}
+.court-tag-del{background:none;border:none;color:var(--gold);cursor:pointer;font-size:14px;line-height:1;padding:0;opacity:.6}
+.court-tag-del:hover{opacity:1}
+.add-court-row{display:flex;gap:7px}
+.add-court-row input{flex:1;padding:8px 11px;font-size:13px}
+/* TOGGLE */
+.tog-row{display:flex;align-items:center;justify-content:space-between;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 12px;cursor:pointer;transition:border-color .2s}
+.tog-row:hover{border-color:var(--gb)}
+.tog-row.on{border-color:rgba(245,197,24,.4)}
+.tog-title{font-size:13px;font-weight:500}
+.tog-sub{font-size:11px;color:var(--gray);margin-top:2px}
+.tog-sw{width:38px;height:21px;background:rgba(255,255,255,.1);border-radius:100px;position:relative;transition:background .2s;flex-shrink:0}
+.tog-sw::after{content:'';position:absolute;top:3px;left:3px;width:15px;height:15px;background:#fff;border-radius:50%;transition:transform .2s}
+.tog-row.on .tog-sw{background:var(--gold)}
+.tog-row.on .tog-sw::after{transform:translateX(17px)}
+.partner-note{background:var(--s2);border:1.5px solid var(--gb);border-radius:var(--rs);padding:11px;margin-top:9px;display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--gray)}
+.partner-note b{color:var(--gold)}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:var(--rs);font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;padding:9px 16px}
+.btn-gold{background:var(--gold);color:#0e0e0e}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px)}
+.btn-wa{width:100%;padding:14px;font-size:14px;font-weight:700;background:var(--wa);color:#fff;border-radius:var(--r);box-shadow:0 4px 18px rgba(37,211,102,.2)}
+.btn-wa:hover{background:#1fc25b;transform:translateY(-2px);box-shadow:0 8px 26px rgba(37,211,102,.3)}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--white);border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-danger{background:rgba(240,90,90,.1);color:var(--red);border:1px solid rgba(240,90,90,.25)}
+.btn-danger:hover{background:rgba(240,90,90,.18)}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-full{width:100%}
+.wa-note{text-align:center;font-size:11px;color:var(--gray);margin-top:7px;line-height:1.5}
+/* SUCCESS */
+.success{text-align:center;padding:34px 14px;animation:up .4s ease}
+.success-ico{font-size:56px;margin-bottom:12px}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:50px;color:var(--gold);line-height:1;margin-bottom:9px}
+.success-sub{color:var(--gray);font-size:13px;line-height:1.7}
+/* INVITES */
+.invite-box{background:var(--surface);border:1.5px solid var(--gb);border-radius:var(--r);padding:16px;margin-bottom:9px;animation:up .3s ease}
+.invite-box.handled{opacity:.55;border-color:var(--border)}
+.inv-from{font-size:11px;color:var(--gray);margin-bottom:3px}
+.inv-name{font-weight:700;font-size:15px}
+.inv-tour{font-size:12px;color:var(--gold);margin-top:3px}
+.inv-actions{display:flex;gap:7px;margin-top:11px}
+/* ADMIN */
+.admin-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.ac-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.ac-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ac-meta{font-size:11px;color:var(--gray);margin-top:3px}
+.fmt-row{display:flex;gap:7px;margin-bottom:12px}
+.fmt-btn{flex:1;padding:8px;border-radius:var(--rs);font-size:12px;font-weight:700;background:var(--s2);border:1.5px solid var(--border);color:var(--gray);cursor:pointer;transition:all .2s;text-align:center}
+.fmt-btn:hover{border-color:rgba(90,171,240,.4);color:var(--blue)}
+.fmt-btn.active{border-color:var(--blue);background:rgba(90,171,240,.1);color:var(--blue)}
+/* admin court manager */
+.admin-courts{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:11px;margin-bottom:10px}
+.admin-courts-hd{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+.admin-court-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;min-height:26px}
+.admin-ct{display:inline-flex;align-items:center;gap:4px;background:var(--gd);border:1px solid var(--gb);color:var(--gold);font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px}
+.admin-ct input{background:transparent;border:none;color:var(--gold);font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;width:90px;padding:0;outline:none;cursor:text}
+.admin-ct input:focus{border-bottom:1px solid var(--gold)}
+.admin-ct-del{background:none;border:none;color:var(--gold);cursor:pointer;font-size:13px;line-height:1;padding:0 0 0 2px;opacity:.6}
+.admin-ct-del:hover{opacity:1}
+/* pairs */
+.pair-row{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:9px 12px;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+.pair-num{width:24px;height:24px;border-radius:50%;background:var(--gd);color:var(--gold);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pair-names{flex:1;font-size:13px;font-weight:500}
+.pair-sub{font-size:10px;color:var(--gray);margin-top:2px}
+.court-sel{width:130px;padding:5px 8px;font-size:12px;border-radius:7px;background:var(--s3);border:1.5px solid var(--border);color:var(--white);font-family:'Outfit',sans-serif;outline:none;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M1 1l3 3 3-3' stroke='%23887a68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;padding-right:22px}
+.court-sel:focus{border-color:rgba(245,197,24,.5)}
+.sdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sdot-pending{background:var(--orange)}
+/* lineup */
+.lineup-wrap{margin-top:12px}
+.lineup-round{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--gold);letter-spacing:1px;margin-bottom:7px}
+.match-row{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:9px 12px;margin-bottom:5px;display:flex;align-items:center;gap:9px;font-size:13px}
+.match-court{background:var(--gd);color:var(--gold);padding:2px 9px;border-radius:100px;font-size:10px;font-weight:700;flex-shrink:0;border:1px solid var(--gb)}
+.match-teams{flex:1;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.match-vs{color:var(--gray2);font-weight:700;font-size:10px}
+.round-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);padding:5px 0 3px;border-top:1px solid var(--border);margin-top:5px}
+.round-label:first-child{border-top:none;margin-top:0}
+.admin-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:16px;backdrop-filter:blur(6px);overflow-y:auto}
+.modal-bg.open{display:flex}
+.modal{background:var(--surface);border:1.5px solid var(--gb);border-radius:var(--r);padding:20px;width:100%;max-width:440px;animation:up .25s ease;margin:auto}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);margin-bottom:5px}
+.modal-sub{font-size:12px;color:var(--gray);margin-bottom:16px;line-height:1.5}
+.modal-actions{display:flex;gap:9px;margin-top:14px}
+.csect{margin-bottom:14px}
+.csect-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+/* TOAST */
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--gold);color:#0e0e0e;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:700;z-index:500;transition:transform .3s;white-space:nowrap;box-shadow:0 4px 20px rgba(245,197,24,.4)}
+#toast.show{transform:translateX(-50%) translateY(0)}
+.empty{text-align:center;padding:26px 14px;color:var(--gray);font-size:13px}
+.empty-ico{font-size:34px;margin-bottom:8px}
+@media(max-width:380px){.frow{grid-template-columns:1fr}.pills{flex-wrap:wrap}.mode-row{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="rotate(-22 28 45)"><ellipse cx="28" cy="35" rx="14" ry="20" fill="#111"/><ellipse cx="28" cy="35" rx="9" ry="13" fill="none" stroke="#2a2a2a" stroke-width="1.5"/><circle cx="24" cy="30" r="2" fill="#1e1e1e"/><circle cx="28" cy="30" r="2" fill="#1e1e1e"/><circle cx="32" cy="30" r="2" fill="#1e1e1e"/><circle cx="24" cy="38" r="2" fill="#1e1e1e"/><circle cx="28" cy="38" r="2" fill="#1e1e1e"/><circle cx="32" cy="38" r="2" fill="#1e1e1e"/><line x1="28" y1="54" x2="22" y2="76" stroke="#111" stroke-width="5" stroke-linecap="round"/></g>
+        <g transform="rotate(22 72 45)"><ellipse cx="72" cy="35" rx="14" ry="20" fill="#111"/><ellipse cx="72" cy="35" rx="9" ry="13" fill="none" stroke="#2a2a2a" stroke-width="1.5"/><circle cx="68" cy="30" r="2" fill="#1e1e1e"/><circle cx="72" cy="30" r="2" fill="#1e1e1e"/><circle cx="76" cy="30" r="2" fill="#1e1e1e"/><circle cx="68" cy="38" r="2" fill="#1e1e1e"/><circle cx="72" cy="38" r="2" fill="#1e1e1e"/><circle cx="76" cy="38" r="2" fill="#1e1e1e"/><line x1="72" y1="54" x2="78" y2="76" stroke="#111" stroke-width="5" stroke-linecap="round"/></g>
+        <path d="M39 30 L42 80 L58 80 L61 30 Z" fill="#f5c518"/><path d="M39 30 L42 52 L58 52 L61 30 Z" fill="rgba(255,230,100,0.55)"/>
+        <ellipse cx="50" cy="29" rx="12" ry="7" fill="white"/><ellipse cx="44" cy="25" rx="7" ry="5" fill="white"/><ellipse cx="56" cy="25" rx="7" ry="5" fill="white"/><ellipse cx="50" cy="21" rx="5" ry="4" fill="white"/>
+        <path d="M36 18 L41 7 L50 14 L59 7 L64 18 L61 24 L39 24 Z" fill="#f5c518" stroke="#c89008" stroke-width="1"/>
+        <circle cx="41" cy="6" r="3" fill="#f5c518" stroke="#c89008" stroke-width="1"/><circle cx="50" cy="3" r="3" fill="#f5c518" stroke="#c89008" stroke-width="1"/><circle cx="59" cy="6" r="3" fill="#f5c518" stroke="#c89008" stroke-width="1"/>
+        <text x="50" y="93" font-family="Arial" font-size="7" font-weight="bold" fill="#333" text-anchor="middle">EST.2020</text>
+      </svg>
+    </div>
+    <div class="nav-text">
+      <span class="nav-title">Padel Cerveja</span>
+      <span class="nav-sub">&amp; Petiscos · Est. 2020</span>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showView('signup')">Sign Up</button>
+    <button class="nav-tab" onclick="showView('partner')">Partners</button>
+    <button class="nav-tab" onclick="showView('admin')">Admin</button>
+  </div>
+</nav>
+
+<div id="toast"></div>
+
+<!-- ══════════════════ SIGN UP ══════════════════ -->
+<div class="view active" id="view-signup">
+  <div class="hero">
+    <div class="hero-svg">
+      <svg width="200" height="148" viewBox="0 0 200 148" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="133" rx="70" ry="12" fill="rgba(245,197,24,0.1)"/>
+        <g transform="rotate(-26 52 72)"><ellipse cx="52" cy="52" rx="24" ry="34" fill="#111" stroke="#222" stroke-width="1.5"/><ellipse cx="52" cy="52" rx="16" ry="23" fill="none" stroke="#2c2c2c" stroke-width="1.5"/><circle cx="45" cy="44" r="2.2" fill="#1a1a1a"/><circle cx="52" cy="44" r="2.2" fill="#1a1a1a"/><circle cx="59" cy="44" r="2.2" fill="#1a1a1a"/><circle cx="45" cy="53" r="2.2" fill="#1a1a1a"/><circle cx="52" cy="53" r="2.2" fill="#1a1a1a"/><circle cx="59" cy="53" r="2.2" fill="#1a1a1a"/><circle cx="45" cy="62" r="2.2" fill="#1a1a1a"/><circle cx="52" cy="62" r="2.2" fill="#1a1a1a"/><circle cx="59" cy="62" r="2.2" fill="#1a1a1a"/><line x1="52" y1="85" x2="47" y2="122" stroke="#111" stroke-width="7" stroke-linecap="round"/></g>
+        <g transform="rotate(26 148 72)"><ellipse cx="148" cy="52" rx="24" ry="34" fill="#111" stroke="#222" stroke-width="1.5"/><ellipse cx="148" cy="52" rx="16" ry="23" fill="none" stroke="#2c2c2c" stroke-width="1.5"/><circle cx="141" cy="44" r="2.2" fill="#1a1a1a"/><circle cx="148" cy="44" r="2.2" fill="#1a1a1a"/><circle cx="155" cy="44" r="2.2" fill="#1a1a1a"/><circle cx="141" cy="53" r="2.2" fill="#1a1a1a"/><circle cx="148" cy="53" r="2.2" fill="#1a1a1a"/><circle cx="155" cy="53" r="2.2" fill="#1a1a1a"/><circle cx="141" cy="62" r="2.2" fill="#1a1a1a"/><circle cx="148" cy="62" r="2.2" fill="#1a1a1a"/><circle cx="155" cy="62" r="2.2" fill="#1a1a1a"/><line x1="148" y1="85" x2="153" y2="122" stroke="#111" stroke-width="7" stroke-linecap="round"/></g>
+        <path d="M83 34 L79 120 L121 120 L117 34 Z" fill="#f5c518"/><path d="M83 34 L87 64 L113 64 L117 34 Z" fill="rgba(255,235,100,0.5)"/>
+        <circle cx="92" cy="82" r="2.8" fill="rgba(255,220,50,0.4)"/><circle cx="101" cy="96" r="2" fill="rgba(255,220,50,0.3)"/><circle cx="110" cy="87" r="2.2" fill="rgba(255,220,50,0.35)"/>
+        <ellipse cx="100" cy="33" rx="20" ry="9" fill="white"/><ellipse cx="92" cy="27" rx="8.5" ry="6.5" fill="white"/><ellipse cx="108" cy="27" rx="8.5" ry="6.5" fill="white"/><ellipse cx="100" cy="22" rx="6.5" ry="5" fill="white"/>
+        <path d="M79 16 L86 3 L100 12 L114 3 L121 16 L117 24 L83 24 Z" fill="#f5c518" stroke="#c89008" stroke-width="1.5"/>
+        <circle cx="86" cy="2" r="3.5" fill="#f5c518" stroke="#c89008" stroke-width="1"/><circle cx="100" cy="-1" r="3.5" fill="#f5c518" stroke="#c89008" stroke-width="1"/><circle cx="114" cy="2" r="3.5" fill="#f5c518" stroke="#c89008" stroke-width="1"/>
+        <circle cx="36" cy="110" r="9" fill="#b8e04a" opacity=".9"/><circle cx="160" cy="106" r="8" fill="#b8e04a" opacity=".9"/><circle cx="174" cy="122" r="6.5" fill="#b8e04a" opacity=".8"/>
+        <ellipse cx="22" cy="103" rx="14" ry="4.5" fill="rgba(245,197,24,0.18)" transform="rotate(-18 22 103)"/><ellipse cx="181" cy="98" rx="12" ry="4" fill="rgba(245,197,24,0.14)" transform="rotate(12 181 98)"/>
+      </svg>
+    </div>
+    <h1 class="hero-title">PADEL CERVEJA<span>&amp; PETISCOS</span></h1>
+    <div class="hero-div">
+      <div class="hero-div-line"></div>
+      <div class="hero-div-pill">Sign Up</div>
+      <div class="hero-div-line"></div>
+    </div>
+    <p>WhatsApp confirmation · Partner pairing · Dynamic courts</p>
+  </div>
+
+  <div class="pills" id="stats-row"></div>
+
+  <div class="slabel">What are you joining?</div>
+  <div class="mode-row">
+    <div class="mode-btn active" id="mode-tournament" onclick="setMode('tournament')">
+      <div class="mb-icon">🏆</div>
+      <div class="mb-title">Tournament</div>
+      <div class="mb-sub">Structured event · opens 5 days before</div>
+    </div>
+    <div class="mode-btn" id="mode-game" onclick="setMode('game')">
+      <div class="mb-icon">🎮</div>
+      <div class="mb-title">Game</div>
+      <div class="mb-sub">Quick session · opens 1 day before</div>
+    </div>
+  </div>
+
+  <div class="slabel" id="elist-label">Select Tournament</div>
+  <div id="event-list"></div>
+
+  <!-- signup form -->
+  <div id="signup-form" style="display:none">
+    <div class="fbox">
+      <div class="ftitle">👤 Your Details</div>
+      <div class="frow">
+        <div class="fg"><label>First Name</label><input type="text" id="s-fname" placeholder="Maria" autocomplete="given-name"></div>
+        <div class="fg"><label>Last Name</label><input type="text" id="s-lname" placeholder="Sanchez" autocomplete="family-name"></div>
+      </div>
+      <div class="fg">
+        <label>WhatsApp Number</label>
+        <div class="phone-row">
+          <select class="cc" id="s-cc">
+            <option value="1">🇺🇸 +1</option><option value="34" selected>🇪🇸 +34</option><option value="33">🇫🇷 +33</option>
+            <option value="49">🇩🇪 +49</option><option value="44">🇬🇧 +44</option><option value="31">🇳🇱 +31</option>
+            <option value="32">🇧🇪 +32</option><option value="351">🇵🇹 +351</option><option value="39">🇮🇹 +39</option>
+            <option value="971">🇦🇪 +971</option><option value="61">🇦🇺 +61</option><option value="55">🇧🇷 +55</option><option value="54">🇦🇷 +54</option>
+          </select>
+          <input type="tel" id="s-phone" placeholder="612 345 678" autocomplete="tel">
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>Skill Level</label>
+          <select id="s-level"><option value="">Select…</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>Pro</option></select>
+        </div>
+        <div class="fg"><label>Category</label>
+          <select id="s-cat"><option value="">Select…</option><option>Men's Doubles</option><option>Women's Doubles</option><option>Mixed Doubles</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="fbox">
+      <div class="ftitle">🤝 Partner</div>
+      <div class="tog-row" id="partner-tog" onclick="togglePartner()">
+        <div><div class="tog-title">Invite a partner</div><div class="tog-sub">They'll receive a WhatsApp pairing request</div></div>
+        <div class="tog-sw"></div>
+      </div>
+      <div id="partner-form" style="display:none;margin-top:11px">
+        <div class="frow">
+          <div class="fg"><label>Partner First Name</label><input type="text" id="p-fname" placeholder="Carlos"></div>
+          <div class="fg"><label>Partner Last Name</label><input type="text" id="p-lname" placeholder="Gomez"></div>
+        </div>
+        <div class="fg">
+          <label>Partner WhatsApp</label>
+          <div class="phone-row">
+            <select class="cc" id="p-cc">
+              <option value="34" selected>🇪🇸 +34</option><option value="1">🇺🇸 +1</option><option value="44">🇬🇧 +44</option>
+              <option value="33">🇫🇷 +33</option><option value="31">🇳🇱 +31</option><option value="351">🇵🇹 +351</option><option value="55">🇧🇷 +55</option>
+            </select>
+            <input type="tel" id="p-phone" placeholder="698 765 432">
+          </div>
+        </div>
+        <div class="partner-note"><span style="font-size:17px;flex-shrink:0">💬</span><span>Your partner gets a <b>WhatsApp invite</b> and must confirm before your pair is locked in.</span></div>
+      </div>
+    </div>
+    <button class="btn btn-wa" onclick="submitSignup()">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Register via WhatsApp
+    </button>
+    <p class="wa-note">Opens WhatsApp with your registration pre-filled. Admin confirms your spot.</p>
+  </div>
+  <div class="success" id="signup-success" style="display:none">
+    <div class="success-ico">🍺🎾</div>
+    <div class="success-title">YOU'RE IN!</div>
+    <p class="success-sub">Registration sent via WhatsApp.<br>Partner invite sent if you requested one.<br><br>See you on the court! 🏆</p>
+    <button class="btn btn-gold" style="margin-top:20px;padding:12px 26px" onclick="resetSignup()">Register Another Player</button>
+  </div>
+</div>
+
+<!-- ══════════════════ PARTNERS ══════════════════ -->
+<div class="view" id="view-partner">
+  <div class="vheader"><h1>PARTNER<span>REQUESTS</span></h1><p>Accept or decline pairing invitations</p></div>
+  <div id="partner-requests-list"></div>
+</div>
+
+<!-- ══════════════════ ADMIN ══════════════════ -->
+<div class="view" id="view-admin">
+  <div class="vheader"><h1>ADMIN<span>PANEL</span></h1><p>Manage events, courts &amp; lineups</p></div>
+  <button class="btn btn-gold btn-full" style="margin-bottom:14px" onclick="openCreateModal()">＋ Create New Event</button>
+  <div id="admin-content"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal" id="modal-inner">
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-sub" id="modal-sub"></div>
+    <div id="modal-body"></div>
+    <div class="modal-actions" id="modal-actions"></div>
+  </div>
+</div>
+
+<script>
+const ADMIN_WA = '447894983960'; // ← replace with real number
+
+// ══════════════════════════════════
+// STATE
+// ══════════════════════════════════
+let state = loadState();
+
+function loadState() {
+  try { const s = localStorage.getItem('pcp_v5'); if (s) return JSON.parse(s); } catch(e) {}
+  return defaultState();
+}
+function defaultState() {
+  return {
+    events: [
+      { id:'e1', type:'tournament', name:'Cerveja Open',       date:daysFromNow(3),  time:'09:00–18:00', capacity:16, prize:'🍺 Free beers', formats:['Doubles','Americano'], activeFormat:'Doubles',    courts:['Top Court','Outside Court','Court 3','Court 4'], registrations:[] },
+      { id:'e2', type:'tournament', name:'Club Championship',  date:daysFromNow(4),  time:'10:00–17:00', capacity:12, prize:'🏆 Trophy',     formats:['Doubles','Americano'], activeFormat:'Americano',  courts:['Court A','Court B','Court C'], registrations:[] },
+      { id:'e3', type:'game',       name:'Friday Night Padel', date:daysFromNow(1),  time:'19:00–22:00', capacity:8,  prize:'',             formats:['Doubles','Americano'], activeFormat:'Americano',  courts:['Inside','Outside'], registrations:[] },
+      { id:'e4', type:'tournament', name:'Rookie Cup',         date:daysFromNow(10), time:'10:00–15:00', capacity:16, prize:'🥇 Medals',     formats:['Doubles','Americano'], activeFormat:'Doubles',    courts:['Court 1','Court 2','Court 3','Court 4'], registrations:[] }
+    ],
+    partnerRequests: []
+  };
+}
+function daysFromNow(n) { const d = new Date(); d.setDate(d.getDate()+n); return d.toISOString().split('T')[0]; }
+function saveState() { localStorage.setItem('pcp_v5', JSON.stringify(state)); }
+function getEvent(id) { return state.events.find(e => e.id === id); }
+function daysUntil(s) { const d=new Date(s); d.setHours(0,0,0,0); const n=new Date(); n.setHours(0,0,0,0); return Math.round((d-n)/86400000); }
+function isOpen(ev) { const d=daysUntil(ev.date); const win=ev.type==='game'?1:5; return d>=0&&d<=win; }
+function fmtDate(s) { return new Date(s).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}); }
+
+function toast(msg) { const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2600); }
+function showModal(title,sub,body,actions) { document.getElementById('modal-title').textContent=title; document.getElementById('modal-sub').innerHTML=sub; document.getElementById('modal-body').innerHTML=body; document.getElementById('modal-actions').innerHTML=actions; document.getElementById('modal-bg').classList.add('open'); }
+function closeModal() { document.getElementById('modal-bg').classList.remove('open'); }
+document.getElementById('modal-bg').addEventListener('click',e=>{ if(e.target===document.getElementById('modal-bg')) closeModal(); });
+
+// ══════════════════════════════════
+// NAV
+// ══════════════════════════════════
+let currentView='signup', selectedEId=null, signupMode='tournament', wantsPartner=false;
+
+function showView(v) {
+  currentView=v;
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  ['signup','partner','admin'].forEach((n,i)=>{ if(n===v) document.querySelectorAll('.nav-tab')[i].classList.add('active'); });
+  if(v==='signup') renderSignupView();
+  if(v==='partner') renderPartnerView();
+  if(v==='admin') renderAdminView();
+}
+
+// ══════════════════════════════════
+// SIGNUP
+// ══════════════════════════════════
+function setMode(mode) {
+  signupMode=mode; selectedEId=null;
+  document.getElementById('mode-tournament').classList.toggle('active',mode==='tournament');
+  document.getElementById('mode-game').classList.toggle('active',mode==='game');
+  document.getElementById('elist-label').textContent=mode==='game'?'Select Game':'Select Tournament';
+  document.getElementById('signup-form').style.display='none';
+  document.getElementById('signup-success').style.display='none';
+  renderEventList();
+}
+
+function renderSignupView() { renderStats(); renderEventList(); }
+
+function renderStats() {
+  const total=state.events.reduce((a,e)=>a+e.registrations.length,0);
+  const spots=state.events.reduce((a,e)=>a+Math.max(0,e.capacity-e.registrations.length),0);
+  document.getElementById('stats-row').innerHTML=`
+    <div class="pill"><div class="pill-val">${state.events.length}</div><div class="pill-lbl">Events</div></div>
+    <div class="pill"><div class="pill-val">${total}</div><div class="pill-lbl">Registered</div></div>
+    <div class="pill"><div class="pill-val">${spots}</div><div class="pill-lbl">Spots Left</div></div>`;
+}
+
+function renderEventList() {
+  const list=document.getElementById('event-list');
+  const filtered=state.events.filter(e=>e.type===signupMode);
+  if(!filtered.length){ list.innerHTML=`<div class="empty"><div class="empty-ico">${signupMode==='game'?'🎮':'🏆'}</div>No ${signupMode}s available yet.</div>`; return; }
+  list.innerHTML=filtered.map(ev=>{
+    const days=daysUntil(ev.date), open=isOpen(ev);
+    const pct=Math.round(ev.registrations.length/ev.capacity*100);
+    const left=ev.capacity-ev.registrations.length, full=left<=0;
+    const clickable=open&&!full;
+    const win=ev.type==='game'?1:5;
+    let badge,barColor;
+    if(!open&&days>win){ badge=`<span class="badge b-closed">Opens in ${days-win}d</span>`; barColor='var(--gray2)'; }
+    else if(days<0){ badge=`<span class="badge b-closed">Closed</span>`; barColor='var(--gray2)'; }
+    else if(full){ badge=`<span class="badge b-full">Full</span>`; barColor='var(--red)'; }
+    else if(pct>=60){ badge=`<span class="badge b-filling">Filling fast</span>`; barColor='var(--orange)'; }
+    else{ badge=`<span class="badge b-open">Open</span>`; barColor='var(--gold)'; }
+    const fmtB=`<span class="badge b-format">${ev.activeFormat==='Americano'?'🔄':'🏅'} ${ev.activeFormat}</span>`;
+    const countdown=open&&!full?`<div class="ec-countdown ${days<=1?'hot':''}">${days===0?'⏱ Today!':days===1?'⏱ Tomorrow!':`⏱ ${days} days`}</div>`:'';
+    const courtsHtml=ev.courts.length?`<div class="ec-courts">${ev.courts.map(c=>`<span class="court-chip">${c}</span>`).join('')}</div>`:'';
+    return `<div class="ecard ${selectedEId===ev.id?'sel':''} ${!clickable?'locked':''}" id="ecard-${ev.id}" onclick="${clickable?`selectEvent('${ev.id}')`:''} ">
+      <div class="ec-check"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l2.5 2.5L9 1" stroke="#0e0e0e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="ec-head"><div class="ec-name">${ev.name}</div><div class="ec-badges">${fmtB}${badge}</div></div>
+      ${countdown}
+      <div class="ec-meta"><span>📅 ${fmtDate(ev.date)}</span><span>🕘 ${ev.time}</span>${ev.prize?`<span>🏆 ${ev.prize}</span>`:''}<span>👥 ${ev.capacity} max</span></div>
+      ${courtsHtml}
+      <div class="ec-bar"><div class="ec-bar-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      <div class="ec-bar-label">${full?'No spots available':`${left} of ${ev.capacity} spots remaining`}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectEvent(id) {
+  selectedEId=id;
+  document.querySelectorAll('.ecard').forEach(c=>c.classList.remove('sel'));
+  const card=document.getElementById('ecard-'+id); if(card) card.classList.add('sel');
+  const f=document.getElementById('signup-form'); f.style.display='block';
+  document.getElementById('signup-success').style.display='none';
+  f.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function togglePartner() {
+  wantsPartner=!wantsPartner;
+  document.getElementById('partner-tog').classList.toggle('on',wantsPartner);
+  document.getElementById('partner-form').style.display=wantsPartner?'block':'none';
+}
+
+function submitSignup() {
+  if(!selectedEId){toast('⚠️ Please select an event');return;}
+  const fname=document.getElementById('s-fname').value.trim(), lname=document.getElementById('s-lname').value.trim();
+  const phone=document.getElementById('s-phone').value.trim(), cc=document.getElementById('s-cc').value;
+  const level=document.getElementById('s-level').value, cat=document.getElementById('s-cat').value;
+  if(!fname||!lname||!phone||!level||!cat){toast('⚠️ Please fill in all fields');return;}
+  const ev=getEvent(selectedEId), pid='p_'+Date.now();
+  let pi=null;
+  if(wantsPartner){
+    const pf=document.getElementById('p-fname').value.trim(), pl=document.getElementById('p-lname').value.trim();
+    const pp=document.getElementById('p-phone').value.trim(), pcc=document.getElementById('p-cc').value;
+    if(!pf||!pl||!pp){toast('⚠️ Fill in partner details or turn off partner toggle');return;}
+    pi={fname:pf,lname:pl,phone:pp,cc:pcc,status:'pending'};
+  }
+  ev.registrations.push({id:pid,fname,lname,phone,cc,level,category:cat,partner:pi,pairConfirmed:!pi,registeredAt:new Date().toISOString()});
+  if(pi) state.partnerRequests.push({id:'pr_'+Date.now(),eventId:selectedEId,eventName:ev.name,eventDate:ev.date,eventType:ev.type,fromName:`${fname} ${lname}`,fromPhone:`${cc}${phone}`,toName:`${pi.fname} ${pi.lname}`,toPhone:`${pi.cc}${pi.phone}`,playerId:pid,status:'pending',createdAt:new Date().toISOString()});
+  saveState();
+  const typeL=ev.type==='game'?'🎮 GAME':'🏆 TOURNAMENT';
+  let msg=`🎾🍺 *PADEL CERVEJA & PETISCOS*\n*NEW ${typeL} REGISTRATION*\n\n`;
+  msg+=`*Event:* ${ev.name}\n*Date:* ${fmtDate(ev.date)} · ${ev.time}\n*Format:* ${ev.activeFormat}\n`;
+  if(ev.prize) msg+=`*Prize:* ${ev.prize}\n`;
+  if(ev.courts.length) msg+=`*Courts:* ${ev.courts.join(', ')}\n`;
+  msg+=`\n━━━━━━━━━━━━━━━\n*Player:* ${fname} ${lname}\n*Level:* ${level}\n*Category:* ${cat}\n*Phone:* +${cc} ${phone}\n`;
+  if(pi) msg+=`\n*Partner Requested:* ${pi.fname} ${pi.lname}\n*(Awaiting confirmation)*\n`;
+  msg+=`\n*ID:* ${pid}\n\nPlease confirm my spot! 🙏🍺`;
+  if(pi){
+    const pMsg=`🎾 *PADEL CERVEJA & PETISCOS*\n\n🤝 *Partner Request!*\n\n*${fname} ${lname}* wants to pair up with you!\n\n*Event:* ${ev.name}\n*Date:* ${fmtDate(ev.date)}\n*Format:* ${ev.activeFormat}\n\nOpen the Padel app → Partners tab to accept.\n\nLet's play! 🍺`;
+    window.open(`https://wa.me/${pi.cc}${pi.phone}?text=${encodeURIComponent(pMsg)}`,'_blank');
+    setTimeout(()=>window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,'_blank'),700);
+  } else {
+    window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,'_blank');
+  }
+  document.getElementById('signup-form').style.display='none';
+  document.getElementById('signup-success').style.display='block';
+  document.getElementById('signup-success').scrollIntoView({behavior:'smooth'});
+  renderStats(); renderEventList();
+}
+
+function resetSignup() {
+  selectedEId=null; wantsPartner=false;
+  ['s-fname','s-lname','s-phone','p-fname','p-lname','p-phone'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('s-level').value=''; document.getElementById('s-cat').value='';
+  document.getElementById('partner-tog').classList.remove('on');
+  document.getElementById('partner-form').style.display='none';
+  document.getElementById('signup-form').style.display='none';
+  document.getElementById('signup-success').style.display='none';
+  renderEventList(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ══════════════════════════════════
+// PARTNERS
+// ══════════════════════════════════
+function renderPartnerView() {
+  const el=document.getElementById('partner-requests-list');
+  const pending=state.partnerRequests.filter(r=>r.status==='pending');
+  const done=state.partnerRequests.filter(r=>r.status!=='pending');
+  if(!state.partnerRequests.length){el.innerHTML=`<div class="empty"><div class="empty-ico">🤝</div>No partner requests yet.</div>`;return;}
+  let html='';
+  if(pending.length){
+    html+=`<div class="slabel">Pending (${pending.length})</div>`;
+    html+=pending.map(r=>`<div class="invite-box" id="req-${r.id}"><div class="inv-from">Partner request from</div><div class="inv-name">⚡ ${r.fromName}</div><div class="inv-tour">${r.eventType==='game'?'🎮':'🏆'} ${r.eventName} · ${fmtDate(r.eventDate)}</div><div style="margin-top:7px;font-size:12px;color:var(--gray)">For: <b style="color:var(--white)">${r.toName}</b></div><div class="inv-actions"><button class="btn btn-gold" onclick="respondPartner('${r.id}','accepted')">✅ Accept Pair</button><button class="btn btn-danger btn-sm" onclick="respondPartner('${r.id}','declined')">✕ Decline</button></div></div>`).join('');
+  }
+  if(done.length){
+    html+=`<div class="slabel">Handled</div>`;
+    html+=done.map(r=>`<div class="invite-box handled"><div class="inv-name">${r.fromName} ↔ ${r.toName}</div><div class="inv-tour">${r.eventName}</div><div style="margin-top:7px"><span class="badge ${r.status==='accepted'?'b-open':'b-full'}">${r.status==='accepted'?'✅ Paired':'✕ Declined'}</span></div></div>`).join('');
+  }
+  el.innerHTML=html;
+}
+
+function respondPartner(reqId,response) {
+  const req=state.partnerRequests.find(r=>r.id===reqId); if(!req) return;
+  req.status=response;
+  if(response==='accepted'){
+    const ev=getEvent(req.eventId);
+    if(ev){const reg=ev.registrations.find(r=>r.id===req.playerId);if(reg&&reg.partner){reg.partner.status='accepted';reg.pairConfirmed=true;}}
+    const msg=`✅ *PARTNER CONFIRMED!*\n\n${req.toName} accepted your partner request!\n\n*Event:* ${req.eventName}\n*Date:* ${fmtDate(req.eventDate)}\n\nYou're paired! See you on the court 🎾🍺`;
+    window.open(`https://wa.me/${req.fromPhone}?text=${encodeURIComponent(msg)}`,'_blank');
+    toast('✅ Pair confirmed — WA notification sent!');
+  } else { toast('Partner request declined'); }
+  saveState(); renderPartnerView();
+}
+
+// ══════════════════════════════════
+// ADMIN
+// ══════════════════════════════════
+function renderAdminView() {
+  const el=document.getElementById('admin-content');
+  if(!state.events.length){el.innerHTML=`<div class="empty"><div class="empty-ico">📋</div>No events yet. Create one above!</div>`;return;}
+  el.innerHTML=state.events.map(ev=>{
+    const confirmed=getConfirmedPairs(ev), pending=ev.registrations.filter(r=>!r.pairConfirmed);
+    const days=daysUntil(ev.date), dayLabel=days<0?'Done':days===0?'Today':`${days}d`;
+    const win=ev.type==='game'?1:5;
+    const dayBadge=days<0?'b-closed':days<=win?'b-open':'b-filling';
+    const typeIcon=ev.type==='game'?'🎮':'🏆';
+    return `<div class="admin-card">
+      <div class="ac-head">
+        <div>
+          <div class="ac-name">${typeIcon} ${ev.name} <span class="badge b-format" style="font-size:9px;vertical-align:middle">${ev.activeFormat}</span></div>
+          <div class="ac-meta">${fmtDate(ev.date)} · ${confirmed.length} pairs · ${ev.registrations.length}/${ev.capacity}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+          <span class="badge ${dayBadge}">${dayLabel}</span>
+          <button class="btn btn-danger btn-sm" style="padding:4px 9px;font-size:11px" onclick="deleteEvent('${ev.id}')">🗑 Delete</button>
+        </div>
+      </div>
+
+      <div class="slabel" style="margin-top:0">Format</div>
+      <div class="fmt-row">${ev.formats.map(f=>`<div class="fmt-btn ${ev.activeFormat===f?'active':''}" onclick="setFormat('${ev.id}','${f}')">${f==='Americano'?'🔄':'🏅'} ${f}</div>`).join('')}</div>
+
+      <div class="slabel">Courts <span style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray)">— click name to rename, × to remove</span></div>
+      <div class="admin-courts">
+        <div class="admin-court-tags" id="act-${ev.id}">
+          ${ev.courts.map((c,i)=>`<div class="admin-ct"><input type="text" value="${c}" onblur="renameCourt('${ev.id}',${i},this.value)" onkeydown="if(event.key==='Enter')this.blur()" title="Click to rename"><button class="admin-ct-del" onclick="removeCourt('${ev.id}',${i})" title="Remove">×</button></div>`).join('')}
+          ${!ev.courts.length?`<span style="font-size:11px;color:var(--gray);font-style:italic">No courts yet</span>`:''}
+        </div>
+        <div style="display:flex;gap:7px"><input id="nci-${ev.id}" placeholder="Add court name…" style="flex:1;padding:7px 11px;font-size:12px" onkeydown="if(event.key==='Enter')addCourt('${ev.id}')"><button class="btn btn-gold btn-sm" onclick="addCourt('${ev.id}')">+ Add</button></div>
+      </div>
+
+      <div class="slabel">Court Assignment</div>
+      ${confirmed.length===0?`<div class="empty" style="padding:10px;font-size:12px">No confirmed pairs yet</div>`:
+        confirmed.map((pair,i)=>`<div class="pair-row"><div class="pair-num">${i+1}</div><div style="flex:1"><div class="pair-names">${pair[0].fname} ${pair[0].lname}${pair[1]?` &amp; ${pair[1].fname} ${pair[1].lname}`:' (solo)'}</div><div class="pair-sub">${pair[0].level} · ${pair[0].category}</div></div>
+          <select class="court-sel" onchange="assignCourt('${ev.id}','${pair[0].id}',this.value)" onclick="event.stopPropagation()">
+            <option value="">— Court —</option>
+            ${ev.courts.map(c=>`<option value="${c}" ${pair[0].assignedCourt===c?'selected':''}>${c}</option>`).join('')}
+          </select></div>`).join('')}
+
+      ${pending.length?`<div class="slabel">Awaiting Partner Confirmation (${pending.length})</div>${pending.map(r=>`<div class="pair-row" style="opacity:.55"><div class="sdot sdot-pending"></div><div class="pair-names">${r.fname} ${r.lname}${r.partner?` <span style="color:var(--gray)">→ waiting for ${r.partner.fname} ${r.partner.lname}</span>`:''}</div></div>`).join('')}`:''}
+
+      <div class="admin-actions">
+        <button class="btn btn-gold btn-sm" onclick="generateLineup('${ev.id}')">⚡ Generate Lineup</button>
+        <button class="btn btn-wa btn-sm" style="width:auto;padding:6px 13px" onclick="postLineupWA('${ev.id}')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Post to WA
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="clearRegs('${ev.id}')">🗑 Clear Regs</button>
+      </div>
+      <div id="lineup-${ev.id}"></div>
+    </div>`;
+  }).join('');
+}
+
+// ── COURT MANAGEMENT ──
+function addCourt(eid) {
+  const inp=document.getElementById('nci-'+eid);
+  const name=(inp.value||'').trim(); if(!name){toast('⚠️ Enter a court name');return;}
+  const ev=getEvent(eid); if(ev.courts.includes(name)){toast('Court already exists');return;}
+  ev.courts.push(name); inp.value='';
+  saveState(); renderAdminView(); toast(`"${name}" added`);
+}
+function removeCourt(eid,idx) {
+  const ev=getEvent(eid), name=ev.courts[idx];
+  ev.courts.splice(idx,1);
+  ev.registrations.forEach(r=>{if(r.assignedCourt===name)r.assignedCourt='';});
+  saveState(); renderAdminView(); toast(`"${name}" removed`);
+}
+function renameCourt(eid,idx,newName) {
+  newName=(newName||'').trim(); const ev=getEvent(eid), old=ev.courts[idx];
+  if(!newName||newName===old) return;
+  ev.registrations.forEach(r=>{if(r.assignedCourt===old)r.assignedCourt=newName;});
+  ev.courts[idx]=newName; saveState(); renderAdminView(); toast(`Renamed → "${newName}"`);
+}
+function setFormat(eid,fmt) { getEvent(eid).activeFormat=fmt; saveState(); renderAdminView(); toast(`Format → ${fmt}`); }
+function assignCourt(eid,pid,court) { const reg=getEvent(eid).registrations.find(r=>r.id===pid); if(reg){reg.assignedCourt=court;saveState();} }
+
+// ── LINEUP ──
+function getConfirmedPairs(ev) {
+  const pairs=[];
+  ev.registrations.forEach(reg=>{
+    if(!reg.pairConfirmed) return;
+    if(reg.partner&&reg.partner.status==='accepted') pairs.push([reg,{fname:reg.partner.fname,lname:reg.partner.lname,level:reg.level,category:reg.category,id:reg.id+'_p',assignedCourt:reg.assignedCourt}]);
+    else if(!reg.partner) pairs.push([reg]);
+  });
+  return pairs;
+}
+
+function generateLineup(eid) {
+  const ev=getEvent(eid), pairs=getConfirmedPairs(ev);
+  const el=document.getElementById('lineup-'+eid);
+  if(pairs.length<2){el.innerHTML=`<div class="empty" style="padding:10px;font-size:12px">Need at least 2 confirmed pairs.</div>`;return;}
+  el.innerHTML='<div style="height:10px"></div>'+(ev.activeFormat==='Americano'?buildAmericano(pairs,ev):buildDoubles(pairs,ev));
+  toast('⚡ Lineup generated!');
+}
+
+function buildDoubles(pairs,ev) {
+  const shuffled=[...pairs].sort(()=>Math.random()-.5);
+  shuffled.forEach((p,i)=>{ if(!p[0].assignedCourt&&ev.courts.length) p[0].assignedCourt=ev.courts[i%ev.courts.length]; });
+  const matches=[];
+  for(let i=0;i<shuffled.length-1;i+=2) matches.push({a:shuffled[i],b:shuffled[i+1],court:shuffled[i][0].assignedCourt||(ev.courts[Math.floor(i/2)]||`Court ${Math.floor(i/2)+1}`)});
+  if(shuffled.length%2!==0) matches.push({a:shuffled[shuffled.length-1],b:null,court:shuffled[shuffled.length-1][0].assignedCourt||'TBD'});
+  return `<div class="lineup-wrap"><div class="lineup-round">📋 ${ev.name} — DOUBLES DRAW</div>${matches.map(m=>`<div class="match-row"><div class="match-court">${m.court}</div><div class="match-teams"><span>${pN(m.a)}</span><span class="match-vs">VS</span><span>${m.b?pN(m.b):'<em style="color:var(--gray)">BYE</em>'}</span></div></div>`).join('')}</div>`;
+}
+
+function buildAmericano(pairs,ev) {
+  const players=[];
+  pairs.forEach(p=>{players.push(`${p[0].fname} ${p[0].lname}`);if(p[1])players.push(`${p[1].fname} ${p[1].lname}`);});
+  const rounds=Math.min(Math.max(3,players.length-1),6);
+  let html=`<div class="lineup-wrap"><div class="lineup-round">🔄 ${ev.name} — AMERICANO</div><div style="font-size:11px;color:var(--gray);margin-bottom:9px">Partners rotate every round</div>`;
+  for(let round=1;round<=rounds;round++){
+    html+=`<div class="round-label">Round ${round}</div>`;
+    const rp=[...players].sort(()=>Math.random()-.5);
+    const maxC=Math.min(ev.courts.length||1,Math.floor(rp.length/4));
+    for(let c=0;c<maxC;c++){
+      const idx=c*4; if(idx+3>=rp.length) break;
+      const courtName=ev.courts[c]||`Court ${c+1}`;
+      html+=`<div class="match-row"><div class="match-court">${courtName}</div><div class="match-teams"><span>${rp[idx]} &amp; ${rp[idx+1]}</span><span class="match-vs">VS</span><span>${rp[idx+2]} &amp; ${rp[idx+3]}</span></div></div>`;
+    }
+  }
+  return html+'</div>';
+}
+
+function pN(pair){if(!pair)return'';return`${pair[0].fname} ${pair[0].lname}${pair[1]?` &amp; ${pair[1].fname} ${pair[1].lname}`:''}`;}
+function pNP(pair){if(!pair)return'';return`${pair[0].fname} ${pair[0].lname}${pair[1]?` & ${pair[1].fname} ${pair[1].lname}`:''}`;}
+
+function postLineupWA(eid) {
+  const ev=getEvent(eid), pairs=getConfirmedPairs(ev);
+  if(pairs.length<2){toast('⚠️ Need at least 2 confirmed pairs');return;}
+  const shuffled=[...pairs].sort(()=>Math.random()-.5);
+  const typeL=ev.type==='game'?'🎮 GAME':'🏆 TOURNAMENT';
+  let msg=`🎾🍺 *PADEL CERVEJA & PETISCOS*\n*${ev.name.toUpperCase()} — ${typeL} LINEUP*\n📅 ${fmtDate(ev.date)} · ${ev.time}\n🔖 Format: *${ev.activeFormat}*\n`;
+  if(ev.courts.length) msg+=`🏟 Courts: ${ev.courts.join(' · ')}\n`;
+  msg+=`━━━━━━━━━━━━━━━━━━\n\n`;
+  if(ev.activeFormat==='Americano'){
+    msg+=`🔄 *AMERICANO* — partners rotate every round!\n\n*Players:*\n`;
+    let n=1; pairs.forEach(p=>{msg+=`${n++}. ${p[0].fname} ${p[0].lname}\n`;if(p[1])msg+=`${n++}. ${p[1].fname} ${p[1].lname}\n`;});
+    if(ev.courts.length){msg+=`\n*Courts:*\n`;ev.courts.forEach((c,i)=>msg+=`  ${i+1}. ${c}\n`);}
+    msg+=`\n_(Rotations called by admin on court)_`;
+  } else {
+    msg+=`🏅 *DOUBLES MATCHES:*\n\n`;
+    for(let i=0;i<shuffled.length-1;i+=2){
+      const court=shuffled[i][0].assignedCourt||(ev.courts[Math.floor(i/2)]||`Court ${Math.floor(i/2)+1}`);
+      msg+=`🏟 *${court}*\n${pNP(shuffled[i])}\n  vs\n${pNP(shuffled[i+1])}\n\n`;
+    }
+    if(shuffled.length%2!==0) msg+=`⚡ *BYE:* ${pNP(shuffled[shuffled.length-1])}\n`;
+  }
+  msg+=`\n━━━━━━━━━━━━━━━━━━\nGood luck everyone! 🏆🍺`;
+  window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,'_blank');
+  toast('📤 Lineup sent to WhatsApp!');
+}
+
+function clearRegs(eid){showModal('Clear Registrations','Delete all registrations for this event?','',`<button class="btn btn-danger" onclick="confirmClear('${eid}')">Yes, Clear All</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);}
+function confirmClear(eid){const ev=getEvent(eid);ev.registrations=[];state.partnerRequests=state.partnerRequests.filter(r=>r.eventId!==eid);saveState();closeModal();renderAdminView();renderStats();toast('Registrations cleared');}
+function deleteEvent(eid){showModal('Delete Event','Permanently delete this event and all registrations?','',`<button class="btn btn-danger" onclick="confirmDelete('${eid}')">Yes, Delete</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);}
+function confirmDelete(eid){state.events=state.events.filter(e=>e.id!==eid);state.partnerRequests=state.partnerRequests.filter(r=>r.eventId!==eid);saveState();closeModal();renderAdminView();renderStats();if(currentView==='signup')renderEventList();toast('Event deleted');}
+
+// ══════════════════════════════════
+// CREATE EVENT MODAL
+// ══════════════════════════════════
+let _createType='tournament', _createCourts=[];
+
+function openCreateModal() {
+  _createType='tournament'; _createCourts=[];
+  const today=new Date().toISOString().split('T')[0];
+  const body=`
+  <div class="csect">
+    <div class="csect-title">Event Type</div>
+    <div style="display:flex;gap:8px">
+      <div class="mode-btn active" id="ct-tournament" onclick="setCT('tournament')" style="padding:10px">
+        <div class="mb-icon" style="font-size:20px">🏆</div><div class="mb-title" style="font-size:14px">Tournament</div><div class="mb-sub">Opens 5 days before</div>
+      </div>
+      <div class="mode-btn" id="ct-game" onclick="setCT('game')" style="padding:10px">
+        <div class="mb-icon" style="font-size:20px">🎮</div><div class="mb-title" style="font-size:14px">Game</div><div class="mb-sub">Opens 1 day before</div>
+      </div>
+    </div>
+  </div>
+  <div class="csect">
+    <div class="csect-title">Details</div>
+    <div class="fg" style="margin-bottom:9px"><label>Event Name</label><input id="ce-name" placeholder="e.g. Friday Night Padel"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px">
+      <div class="fg"><label>Date</label><input id="ce-date" type="date" value="${daysFromNow(3)}"></div>
+      <div class="fg"><label>Time</label><input id="ce-time" placeholder="19:00–22:00"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+      <div class="fg"><label>Max Players</label><input id="ce-cap" type="number" placeholder="8" min="2" max="64" value="8"></div>
+      <div class="fg"><label>Prize / Note</label><input id="ce-prize" placeholder="🍺 Free beers"></div>
+    </div>
+  </div>
+  <div class="csect">
+    <div class="csect-title">Formats Available</div>
+    <div style="display:flex;gap:14px;margin-bottom:10px">
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--white)"><input type="checkbox" id="ce-dbl" checked style="width:auto;padding:0;accent-color:var(--gold)"> 🏅 Doubles</label>
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--white)"><input type="checkbox" id="ce-amr" style="width:auto;padding:0;accent-color:var(--gold)"> 🔄 Americano</label>
+    </div>
+    <div class="fg"><label>Default Format</label>
+      <select id="ce-fmt"><option value="Doubles">Doubles</option><option value="Americano">Americano</option></select>
+    </div>
+  </div>
+  <div class="csect">
+    <div class="csect-title">Courts</div>
+    <div class="court-tags-wrap" id="ce-court-tags"></div>
+    <div class="add-court-row">
+      <input id="ce-ci" placeholder="Court name (e.g. Top Court, Court A…)" onkeydown="if(event.key==='Enter')addCreateCourt()">
+      <button class="btn btn-gold btn-sm" onclick="addCreateCourt()">+ Add</button>
+    </div>
+  </div>`;
+  showModal('Create New Event','Set up a tournament or quick game.',body,
+    `<button class="btn btn-gold" onclick="confirmCreate()">✅ Create Event</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);
+}
+
+function setCT(t){
+  _createType=t;
+  document.getElementById('ct-tournament').classList.toggle('active',t==='tournament');
+  document.getElementById('ct-game').classList.toggle('active',t==='game');
+}
+
+function addCreateCourt(){
+  const inp=document.getElementById('ce-ci'); const name=(inp.value||'').trim();
+  if(!name) return; if(_createCourts.includes(name)){toast('Already added');return;}
+  _createCourts.push(name); inp.value='';
+  document.getElementById('ce-court-tags').innerHTML=_createCourts.map((c,i)=>`<span class="court-tag">${c}<button class="court-tag-del" onclick="_createCourts.splice(${i},1);document.getElementById('ce-court-tags').innerHTML=_createCourts.map((c,i)=>'<span class=\\'court-tag\\'>'+c+'<button class=\\'court-tag-del\\' onclick=\\'_createCourts.splice('+i+',1);this.closest(\\'.court-tags-wrap\\').innerHTML=\\'todo\\'\\'>×</button></span>').join('');renderCreateTags()">×</button></span>`).join('');
+  renderCreateTags();
+}
+function renderCreateTags(){
+  const el=document.getElementById('ce-court-tags'); if(!el) return;
+  el.innerHTML=_createCourts.map((c,i)=>`<span class="court-tag">${c}<button class="court-tag-del" onclick="rmCreateCourt(${i})">×</button></span>`).join('');
+}
+function rmCreateCourt(i){_createCourts.splice(i,1);renderCreateTags();}
+
+function confirmCreate(){
+  const name=(document.getElementById('ce-name').value||'').trim();
+  const date=document.getElementById('ce-date').value;
+  const time=(document.getElementById('ce-time').value||'').trim()||'TBD';
+  const cap=parseInt(document.getElementById('ce-cap').value)||8;
+  const prize=(document.getElementById('ce-prize').value||'').trim();
+  const dbl=document.getElementById('ce-dbl').checked, amr=document.getElementById('ce-amr').checked;
+  const activeFmt=document.getElementById('ce-fmt').value;
+  if(!name){toast('⚠️ Enter an event name');return;}
+  if(!date){toast('⚠️ Pick a date');return;}
+  if(!dbl&&!amr){toast('⚠️ Select at least one format');return;}
+  const formats=[]; if(dbl) formats.push('Doubles'); if(amr) formats.push('Americano');
+  state.events.push({
+    id:'e_'+Date.now(), type:_createType, name, date, time, capacity:cap, prize, formats,
+    activeFormat:formats.includes(activeFmt)?activeFmt:formats[0],
+    courts:[..._createCourts], registrations:[]
+  });
+  saveState(); closeModal(); renderAdminView(); renderStats();
+  if(currentView==='signup') renderEventList();
+  toast(`✅ "${name}" created!`);
+}
+
+// ══════════════════════════════════
+// DEMO SEED
+// ══════════════════════════════════
+function seedDemo(){
+  const ev=getEvent('e1');
+  if(ev&&ev.registrations.length===0){
+    ev.registrations.push(
+      {id:'d1',fname:'Benno', lname:'Fischer',phone:'611001',cc:'34',level:'Advanced',    category:"Men's Doubles",  partner:{fname:'Pablito',lname:'Ruiz',   phone:'611002',cc:'34', status:'accepted'},pairConfirmed:true, assignedCourt:'Top Court',    registeredAt:new Date().toISOString()},
+      {id:'d2',fname:'João',  lname:'Silva',  phone:'611003',cc:'351',level:'Advanced',    category:"Men's Doubles",  partner:{fname:'Reinout',lname:'Berg',   phone:'611004',cc:'31', status:'accepted'},pairConfirmed:true, assignedCourt:'Outside Court', registeredAt:new Date().toISOString()},
+      {id:'d3',fname:'Alex',  lname:'Martin', phone:'611005',cc:'33', level:'Intermediate',category:"Men's Doubles",  partner:{fname:'Juan',  lname:'García', phone:'611006',cc:'34', status:'accepted'},pairConfirmed:true, assignedCourt:'Court 3',      registeredAt:new Date().toISOString()},
+      {id:'d4',fname:'Mike',  lname:'Taylor', phone:'611007',cc:'44', level:'Intermediate',category:"Mixed Doubles",  partner:{fname:'Antoine',lname:'Dupont',phone:'611008',cc:'33', status:'accepted'},pairConfirmed:true, assignedCourt:'Court 4',      registeredAt:new Date().toISOString()},
+      {id:'d5',fname:'James', lname:'Wilson', phone:'611009',cc:'44', level:'Beginner',    category:"Men's Doubles",  partner:{fname:'Tom',   lname:'Harris', phone:'611010',cc:'44', status:'pending'}, pairConfirmed:false,registeredAt:new Date().toISOString()}
+    );
+    state.partnerRequests.push({id:'pr1',eventId:'e1',eventName:'Cerveja Open',eventType:'tournament',eventDate:ev.date,fromName:'James Wilson',fromPhone:'44611009',toName:'Tom Harris',toPhone:'44611010',playerId:'d5',status:'pending',createdAt:new Date().toISOString()});
+    saveState();
+  }
+}
+
+seedDemo();
+renderSignupView();
+</script>
+</body>
+</html>
