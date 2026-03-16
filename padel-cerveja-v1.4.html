@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padel Cerveja &amp; Petiscos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0e0e0e;--surface:#181818;--s2:#212121;--s3:#2a2a2a;
+  --border:rgba(255,255,255,0.08);
+  --gold:#f5c518;--gold2:#ffe055;--gd:rgba(245,197,24,0.13);--gb:rgba(245,197,24,0.25);
+  --wa:#25D366;
+  --white:#f5f0e8;--gray:#887a68;--gray2:#504840;
+  --orange:#f0922a;--red:#f05a5a;--blue:#5aabf0;--green:#4ecf7a;
+  --r:16px;--rs:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 70% 50% at 90% 5%,rgba(245,197,24,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 70% at 5% 95%,rgba(245,197,24,.04) 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.018) 59px,rgba(255,255,255,.018) 60px),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.018) 59px,rgba(255,255,255,.018) 60px)}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(14,14,14,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(245,197,24,.18);display:flex;align-items:center;justify-content:space-between;padding:0 14px;height:62px;gap:6px}
+.nav-brand{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-logo{width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.nav-text{display:flex;flex-direction:column;line-height:1.1}
+.nav-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:var(--gold)}
+.nav-sub{font-size:8px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray)}
+.nav-right{display:flex;align-items:center;gap:4px}
+.nav-tab{background:none;border:none;color:var(--gray);font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;padding:5px 9px;border-radius:100px;cursor:pointer;transition:all .2s}
+.nav-tab.active{background:var(--gd);color:var(--gold)}
+.nav-tab:hover:not(.active){color:var(--white)}
+.nav-avatar{width:30px;height:30px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#0e0e0e;cursor:pointer;flex-shrink:0;border:2px solid rgba(245,197,24,.4);transition:all .2s}
+.nav-avatar:hover{transform:scale(1.08)}
+
+/* VIEWS */
+.view{display:none;position:relative;z-index:1;max-width:520px;margin:0 auto;padding:18px 14px 90px}
+.view.active{display:block}
+
+/* HERO */
+.hero{text-align:center;padding:16px 0 8px}
+.hero-svg{filter:drop-shadow(0 8px 32px rgba(245,197,24,.3));margin-bottom:2px}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,9vw,52px);line-height:.9;color:#fff;letter-spacing:2px;text-shadow:0 2px 20px rgba(245,197,24,.25)}
+.hero-title span{color:var(--gold);display:block;font-size:clamp(20px,5vw,32px);letter-spacing:4px}
+.hero-div{display:flex;align-items:center;gap:10px;margin:11px auto 6px;max-width:300px}
+.hero-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.35}
+.hero-div-pill{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);background:var(--gd);padding:3px 12px;border-radius:100px;border:1px solid var(--gb);white-space:nowrap}
+.hero p{font-size:11px;color:var(--gray);margin-top:3px}
+.vheader{text-align:center;padding:16px 0 8px}
+.vheader h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,9vw,52px);line-height:.9;color:#fff}
+.vheader h1 span{color:var(--gold);display:block}
+.vheader p{font-size:11px;color:var(--gray);margin-top:6px}
+
+/* AUTH SCREEN */
+.auth-screen{max-width:380px;margin:0 auto;padding:20px 0}
+.auth-tabs{display:flex;background:var(--s2);border-radius:var(--r);padding:4px;margin-bottom:20px;gap:4px}
+.auth-tab{flex:1;padding:9px;border-radius:12px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--gray);transition:all .2s;border:none;background:none;font-family:'Outfit',sans-serif}
+.auth-tab.active{background:var(--gold);color:#0e0e0e}
+.auth-welcome{text-align:center;margin-bottom:20px}
+.auth-welcome .aw-ico{font-size:42px;margin-bottom:8px}
+.auth-welcome h2{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--gold);letter-spacing:1px}
+.auth-welcome p{font-size:12px;color:var(--gray);margin-top:4px}
+
+/* PROFILE CARD */
+.profile-card{background:var(--surface);border:1.5px solid var(--gb);border-radius:var(--r);padding:18px;margin-bottom:16px;animation:up .3s ease}
+.pc-top{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.pc-avatar{width:52px;height:52px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:#0e0e0e;flex-shrink:0}
+.pc-name{font-weight:700;font-size:17px}
+.pc-meta{font-size:12px;color:var(--gray);margin-top:3px}
+.pc-stats{display:flex;gap:8px}
+.pc-stat{flex:1;background:var(--s2);border-radius:var(--rs);padding:8px;text-align:center}
+.pc-stat-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);line-height:1}
+.pc-stat-lbl{font-size:9px;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+
+/* MEMBER EVENTS */
+.my-event-row{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:10px 13px;margin-bottom:7px;display:flex;align-items:center;gap:10px}
+.my-event-info{flex:1}
+.my-event-name{font-size:13px;font-weight:600}
+.my-event-meta{font-size:11px;color:var(--gray);margin-top:2px}
+
+/* MODE SWITCHER */
+.mode-row{display:flex;gap:8px;margin-bottom:14px}
+.mode-btn{flex:1;padding:11px 8px;border-radius:var(--r);cursor:pointer;transition:all .2s;background:var(--surface);border:1.5px solid var(--border);text-align:center}
+.mode-btn:hover{border-color:var(--gb);transform:translateY(-1px)}
+.mode-btn.active{border-color:var(--gold);background:var(--gd)}
+.mb-icon{font-size:22px;margin-bottom:2px}
+.mb-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:var(--gold)}
+.mb-sub{font-size:10px;color:var(--gray);margin-top:2px;line-height:1.3}
+
+/* SECTION LABEL */
+.slabel{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin:20px 0 8px}
+
+/* PILLS */
+.pills{display:flex;gap:7px;margin-bottom:14px}
+.pill{flex:1;background:var(--surface);border:1px solid rgba(245,197,24,.15);border-radius:var(--rs);padding:8px;text-align:center}
+.pill-val{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);line-height:1}
+.pill-lbl{font-size:9px;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+
+/* EVENT CARDS */
+.ecard{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:13px;margin-bottom:8px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.ecard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,197,24,.05),transparent 60%);opacity:0;transition:opacity .2s;pointer-events:none}
+.ecard:hover{border-color:var(--gb);transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,0,0,.5)}
+.ecard:hover::after,.ecard.sel::after{opacity:1}
+.ecard.sel{border-color:var(--gold);background:rgba(245,197,24,.06)}
+.ecard.locked{opacity:.4;cursor:not-allowed}
+.ec-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px}
+.ec-name{font-weight:700;font-size:14px}
+.ec-badges{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.badge{font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:2px 8px;border-radius:100px;white-space:nowrap}
+.b-open{background:rgba(245,197,24,.15);color:var(--gold)}
+.b-filling{background:rgba(240,146,42,.15);color:var(--orange)}
+.b-full{background:rgba(240,90,90,.15);color:var(--red)}
+.b-closed{background:rgba(136,122,104,.12);color:var(--gray)}
+.b-format{background:rgba(90,171,240,.14);color:var(--blue)}
+.b-green{background:rgba(78,207,122,.14);color:var(--green)}
+.ec-meta{display:flex;flex-wrap:wrap;gap:7px;font-size:11px;color:var(--gray);margin-bottom:6px}
+.ec-courts{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px}
+.court-chip{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--gd);color:var(--gold);border:1px solid rgba(245,197,24,.2)}
+.ec-countdown{font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;background:var(--gd);color:var(--gold);display:inline-block;margin-bottom:5px}
+.ec-countdown.hot{background:rgba(240,146,42,.12);color:var(--orange)}
+.ec-bar{height:3px;background:rgba(255,255,255,.06);border-radius:10px;overflow:hidden;margin-bottom:3px}
+.ec-bar-fill{height:100%;border-radius:10px;transition:width .5s}
+.ec-bar-label{font-size:11px;color:var(--gray)}
+.ec-check{position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.5);transition:all .2s}
+.ecard.sel .ec-check{opacity:1;transform:scale(1)}
+.already-in{position:absolute;top:12px;right:12px;background:var(--green);color:#0e0e0e;font-size:9px;font-weight:700;padding:2px 8px;border-radius:100px}
+
+/* QUICK SIGNUP CARD */
+.quick-signup{background:var(--surface);border:1.5px solid var(--gb);border-radius:var(--r);padding:16px;margin-bottom:12px;animation:up .3s ease}
+.qs-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.qs-avatar{width:40px;height:40px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#0e0e0e;flex-shrink:0}
+.qs-name{font-weight:700;font-size:15px}
+.qs-sub{font-size:11px;color:var(--gray);margin-top:2px}
+
+/* FORM */
+.fbox{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:15px;margin-bottom:11px;animation:up .3s ease}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ftitle{font-weight:700;font-size:14px;margin-bottom:11px;display:flex;align-items:center;gap:7px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.fg{margin-bottom:10px}
+.fg:last-child{margin-bottom:0}
+label{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-bottom:5px}
+input,select{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 12px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .2s;appearance:none}
+input:focus,select:focus{border-color:rgba(245,197,24,.5)}
+input::placeholder{color:rgba(255,255,255,.2)}
+select option{background:#181818}
+.phone-row{display:flex;gap:7px}
+.cc{width:88px;flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23887a68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;padding-right:24px}
+
+/* DUPLICATE WARNING */
+.dup-warn{background:rgba(240,90,90,.1);border:1.5px solid rgba(240,90,90,.35);border-radius:var(--rs);padding:11px 13px;margin-bottom:11px;display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--red);animation:up .3s ease}
+.dup-warn b{display:block;margin-bottom:2px}
+
+/* PARTNER DROPDOWN */
+.partner-wrap{position:relative}
+.partner-dd{position:absolute;top:100%;left:0;right:0;background:var(--s2);border:1.5px solid var(--gb);border-radius:var(--rs);z-index:50;max-height:170px;overflow-y:auto;margin-top:3px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.po{padding:9px 12px;cursor:pointer;font-size:13px;transition:background .15s}
+.po:hover{background:rgba(245,197,24,.08)}
+.po-name{font-weight:600}
+.po-sub{font-size:11px;color:var(--gray)}
+.po.empty{color:var(--gray);cursor:default;font-style:italic}
+.po.empty:hover{background:none}
+
+/* TOGGLE */
+.tog-row{display:flex;align-items:center;justify-content:space-between;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 12px;cursor:pointer;transition:border-color .2s}
+.tog-row:hover{border-color:var(--gb)}
+.tog-row.on{border-color:rgba(245,197,24,.4)}
+.tog-title{font-size:13px;font-weight:500}
+.tog-sub{font-size:11px;color:var(--gray);margin-top:2px}
+.tog-sw{width:38px;height:21px;background:rgba(255,255,255,.1);border-radius:100px;position:relative;transition:background .2s;flex-shrink:0}
+.tog-sw::after{content:'';position:absolute;top:3px;left:3px;width:15px;height:15px;background:#fff;border-radius:50%;transition:transform .2s}
+.tog-row.on .tog-sw{background:var(--gold)}
+.tog-row.on .tog-sw::after{transform:translateX(17px)}
+.partner-note{background:var(--s2);border:1.5px solid var(--gb);border-radius:var(--rs);padding:10px;margin-top:8px;display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--gray)}
+.partner-note b{color:var(--gold)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:var(--rs);font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;padding:9px 16px}
+.btn-gold{background:var(--gold);color:#0e0e0e}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px)}
+.btn-wa{width:100%;padding:13px;font-size:14px;font-weight:700;background:var(--wa);color:#fff;border-radius:var(--r);box-shadow:0 4px 18px rgba(37,211,102,.2)}
+.btn-wa:hover{background:#1fc25b;transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--white);border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-danger{background:rgba(240,90,90,.1);color:var(--red);border:1px solid rgba(240,90,90,.25)}
+.btn-danger:hover{background:rgba(240,90,90,.18)}
+.btn-sm{padding:6px 11px;font-size:12px}
+.btn-full{width:100%}
+.wa-note{text-align:center;font-size:11px;color:var(--gray);margin-top:6px;line-height:1.5}
+
+/* SUCCESS */
+.success{text-align:center;padding:30px 14px;animation:up .4s ease}
+.success-ico{font-size:52px;margin-bottom:10px}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:46px;color:var(--gold);line-height:1;margin-bottom:8px}
+.success-sub{color:var(--gray);font-size:13px;line-height:1.7}
+
+/* INVITES */
+.invite-box{background:var(--surface);border:1.5px solid var(--gb);border-radius:var(--r);padding:15px;margin-bottom:8px;animation:up .3s ease}
+.invite-box.handled{opacity:.55;border-color:var(--border)}
+.inv-from{font-size:11px;color:var(--gray);margin-bottom:3px}
+.inv-name{font-weight:700;font-size:14px}
+.inv-tour{font-size:12px;color:var(--gold);margin-top:2px}
+.inv-actions{display:flex;gap:7px;margin-top:10px}
+
+/* ADMIN PIN */
+.pin-screen{text-align:center;padding:36px 20px;animation:up .3s ease}
+.pin-title{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);margin-bottom:5px}
+.pin-sub{font-size:13px;color:var(--gray);margin-bottom:22px}
+.pin-dots{display:flex;justify-content:center;gap:14px;margin-bottom:22px}
+.pin-dot{width:16px;height:16px;border-radius:50%;background:var(--s3);border:2px solid var(--border);transition:all .2s}
+.pin-dot.filled{background:var(--gold);border-color:var(--gold)}
+.pin-dot.error{background:var(--red);border-color:var(--red)}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:230px;margin:0 auto}
+.pin-key{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rs);padding:15px;font-size:19px;font-weight:700;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;color:var(--white)}
+.pin-key:hover{border-color:var(--gb);background:var(--gd);color:var(--gold)}
+.pin-key:active{transform:scale(.93)}
+.pin-key.del{font-size:15px;color:var(--gray)}
+.pin-error{font-size:12px;color:var(--red);margin-top:10px;min-height:16px}
+
+/* ADMIN */
+.admin-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:15px;margin-bottom:11px}
+.ac-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:11px}
+.ac-name{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ac-meta{font-size:11px;color:var(--gray);margin-top:2px}
+.fmt-row{display:flex;gap:7px;margin-bottom:11px}
+.fmt-btn{flex:1;padding:7px;border-radius:var(--rs);font-size:12px;font-weight:700;background:var(--s2);border:1.5px solid var(--border);color:var(--gray);cursor:pointer;transition:all .2s;text-align:center}
+.fmt-btn:hover{border-color:rgba(90,171,240,.4);color:var(--blue)}
+.fmt-btn.active{border-color:var(--blue);background:rgba(90,171,240,.1);color:var(--blue)}
+.admin-courts{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:10px;margin-bottom:9px}
+.admin-court-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px;min-height:24px}
+.admin-ct{display:inline-flex;align-items:center;gap:4px;background:var(--gd);border:1px solid var(--gb);color:var(--gold);font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px}
+.admin-ct input{background:transparent;border:none;color:var(--gold);font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;width:90px;padding:0;outline:none;cursor:text}
+.admin-ct input:focus{border-bottom:1px solid var(--gold)}
+.admin-ct-del{background:none;border:none;color:var(--gold);cursor:pointer;font-size:13px;line-height:1;padding:0 0 0 2px;opacity:.6}
+.admin-ct-del:hover{opacity:1}
+.player-row{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:8px 11px;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.player-num{width:22px;height:22px;border-radius:50%;background:var(--gd);color:var(--gold);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.player-info{flex:1}
+.player-name{font-size:13px;font-weight:600}
+.player-meta{font-size:10px;color:var(--gray);margin-top:2px}
+.player-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;background:var(--gd);color:var(--gold);border:1px solid var(--gb);margin-left:4px;vertical-align:middle}
+.player-badge.pending{background:rgba(240,146,42,.12);color:var(--orange);border-color:rgba(240,146,42,.3)}
+.player-badge.member{background:rgba(78,207,122,.12);color:var(--green);border-color:rgba(78,207,122,.3)}
+.pair-row{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:8px 11px;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.pair-num{width:22px;height:22px;border-radius:50%;background:var(--gd);color:var(--gold);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pair-names{flex:1;font-size:13px;font-weight:500}
+.pair-sub{font-size:10px;color:var(--gray);margin-top:2px}
+.court-sel{width:120px;padding:5px 8px;font-size:12px;border-radius:7px;background:var(--s3);border:1.5px solid var(--border);color:var(--white);font-family:'Outfit',sans-serif;outline:none;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M1 1l3 3 3-3' stroke='%23887a68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;padding-right:22px}
+.court-sel:focus{border-color:rgba(245,197,24,.5)}
+.sdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sdot-pending{background:var(--orange)}
+.lineup-wrap{margin-top:11px}
+.lineup-round{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--gold);letter-spacing:1px;margin-bottom:6px}
+.match-row{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:8px 11px;margin-bottom:5px;display:flex;align-items:center;gap:8px;font-size:13px}
+.match-court{background:var(--gd);color:var(--gold);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;flex-shrink:0;border:1px solid var(--gb)}
+.match-teams{flex:1;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.match-vs{color:var(--gray2);font-weight:700;font-size:10px}
+.round-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);padding:4px 0 3px;border-top:1px solid var(--border);margin-top:5px}
+.round-label:first-child{border-top:none;margin-top:0}
+.admin-actions{display:flex;gap:6px;margin-top:11px;flex-wrap:wrap}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:16px;backdrop-filter:blur(6px);overflow-y:auto}
+.modal-bg.open{display:flex}
+.modal{background:var(--surface);border:1.5px solid var(--gb);border-radius:var(--r);padding:20px;width:100%;max-width:420px;animation:up .25s ease;margin:auto}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);margin-bottom:4px}
+.modal-sub{font-size:12px;color:var(--gray);margin-bottom:14px;line-height:1.5}
+.modal-actions{display:flex;gap:8px;margin-top:13px}
+.csect{margin-bottom:13px}
+.csect-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:7px}
+.court-tags-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;min-height:24px}
+.court-tag{display:inline-flex;align-items:center;gap:4px;background:var(--gd);border:1px solid var(--gb);color:var(--gold);font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px}
+.court-tag-del{background:none;border:none;color:var(--gold);cursor:pointer;font-size:13px;line-height:1;padding:0;opacity:.6}
+.court-tag-del:hover{opacity:1}
+.add-court-row{display:flex;gap:7px}
+.add-court-row input{flex:1;padding:7px 11px;font-size:13px}
+
+/* TOAST */
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--gold);color:#0e0e0e;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:700;z-index:500;transition:transform .3s;white-space:nowrap;box-shadow:0 4px 20px rgba(245,197,24,.4)}
+#toast.show{transform:translateX(-50%) translateY(0)}
+.empty{text-align:center;padding:24px 14px;color:var(--gray);font-size:13px}
+.empty-ico{font-size:32px;margin-bottom:7px}
+@media(max-width:380px){.frow{grid-template-columns:1fr}.pills{flex-wrap:wrap}.mode-row{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">
+      <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="rotate(-22 28 45)"><ellipse cx="28" cy="35" rx="14" ry="20" fill="#111"/><ellipse cx="28" cy="35" rx="9" ry="13" fill="none" stroke="#2a2a2a" stroke-width="1.5"/><circle cx="24" cy="30" r="2" fill="#1e1e1e"/><circle cx="28" cy="30" r="2" fill="#1e1e1e"/><circle cx="32" cy="30" r="2" fill="#1e1e1e"/><circle cx="24" cy="38" r="2" fill="#1e1e1e"/><circle cx="28" cy="38" r="2" fill="#1e1e1e"/><circle cx="32" cy="38" r="2" fill="#1e1e1e"/><line x1="28" y1="54" x2="22" y2="76" stroke="#111" stroke-width="5" stroke-linecap="round"/></g>
+        <g transform="rotate(22 72 45)"><ellipse cx="72" cy="35" rx="14" ry="20" fill="#111"/><ellipse cx="72" cy="35" rx="9" ry="13" fill="none" stroke="#2a2a2a" stroke-width="1.5"/><circle cx="68" cy="30" r="2" fill="#1e1e1e"/><circle cx="72" cy="30" r="2" fill="#1e1e1e"/><circle cx="76" cy="30" r="2" fill="#1e1e1e"/><circle cx="68" cy="38" r="2" fill="#1e1e1e"/><circle cx="72" cy="38" r="2" fill="#1e1e1e"/><circle cx="76" cy="38" r="2" fill="#1e1e1e"/><line x1="72" y1="54" x2="78" y2="76" stroke="#111" stroke-width="5" stroke-linecap="round"/></g>
+        <path d="M39 30 L42 80 L58 80 L61 30 Z" fill="#f5c518"/><path d="M39 30 L42 52 L58 52 L61 30 Z" fill="rgba(255,230,100,0.55)"/>
+        <ellipse cx="50" cy="29" rx="12" ry="7" fill="white"/><ellipse cx="44" cy="25" rx="7" ry="5" fill="white"/><ellipse cx="56" cy="25" rx="7" ry="5" fill="white"/><ellipse cx="50" cy="21" rx="5" ry="4" fill="white"/>
+        <path d="M36 18 L41 7 L50 14 L59 7 L64 18 L61 24 L39 24 Z" fill="#f5c518" stroke="#c89008" stroke-width="1"/>
+        <circle cx="41" cy="6" r="3" fill="#f5c518" stroke="#c89008" stroke-width="1"/><circle cx="50" cy="3" r="3" fill="#f5c518" stroke="#c89008" stroke-width="1"/><circle cx="59" cy="6" r="3" fill="#f5c518" stroke="#c89008" stroke-width="1"/>
+        <text x="50" y="93" font-family="Arial" font-size="7" font-weight="bold" fill="#333" text-anchor="middle">EST.2020</text>
+      </svg>
+    </div>
+    <div class="nav-text"><span class="nav-title">Padel Cerveja</span><span class="nav-sub">&amp; Petiscos</span></div>
+  </div>
+  <div class="nav-right">
+    <button class="nav-tab active" id="nav-home" onclick="showView('home')">Events</button>
+    <button class="nav-tab" id="nav-partner" onclick="showView('partner')">Partners</button>
+    <button class="nav-tab" id="nav-admin" onclick="showView('admin')">Admin</button>
+    <div class="nav-avatar" id="nav-avatar" onclick="showView('profile')" title="My Profile">?</div>
+  </div>
+</nav>
+
+<div id="toast"></div>
+
+<!-- ══════════ HOME / EVENTS VIEW ══════════ -->
+<div class="view active" id="view-home">
+  <div class="hero">
+    <div class="hero-svg">
+      <svg width="190" height="142" viewBox="0 0 190 142" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="95" cy="128" rx="66" ry="11" fill="rgba(245,197,24,0.1)"/>
+        <g transform="rotate(-26 50 70)"><ellipse cx="50" cy="50" rx="23" ry="32" fill="#111" stroke="#222" stroke-width="1.5"/><ellipse cx="50" cy="50" rx="15" ry="22" fill="none" stroke="#2c2c2c" stroke-width="1.5"/><circle cx="43" cy="43" r="2" fill="#1a1a1a"/><circle cx="50" cy="43" r="2" fill="#1a1a1a"/><circle cx="57" cy="43" r="2" fill="#1a1a1a"/><circle cx="43" cy="51" r="2" fill="#1a1a1a"/><circle cx="50" cy="51" r="2" fill="#1a1a1a"/><circle cx="57" cy="51" r="2" fill="#1a1a1a"/><circle cx="43" cy="59" r="2" fill="#1a1a1a"/><circle cx="50" cy="59" r="2" fill="#1a1a1a"/><circle cx="57" cy="59" r="2" fill="#1a1a1a"/><line x1="50" y1="81" x2="45" y2="116" stroke="#111" stroke-width="6" stroke-linecap="round"/></g>
+        <g transform="rotate(26 140 70)"><ellipse cx="140" cy="50" rx="23" ry="32" fill="#111" stroke="#222" stroke-width="1.5"/><ellipse cx="140" cy="50" rx="15" ry="22" fill="none" stroke="#2c2c2c" stroke-width="1.5"/><circle cx="133" cy="43" r="2" fill="#1a1a1a"/><circle cx="140" cy="43" r="2" fill="#1a1a1a"/><circle cx="147" cy="43" r="2" fill="#1a1a1a"/><circle cx="133" cy="51" r="2" fill="#1a1a1a"/><circle cx="140" cy="51" r="2" fill="#1a1a1a"/><circle cx="147" cy="51" r="2" fill="#1a1a1a"/><circle cx="133" cy="59" r="2" fill="#1a1a1a"/><circle cx="140" cy="59" r="2" fill="#1a1a1a"/><circle cx="147" cy="59" r="2" fill="#1a1a1a"/><line x1="140" y1="81" x2="145" y2="116" stroke="#111" stroke-width="6" stroke-linecap="round"/></g>
+        <path d="M79 33 L75 115 L115 115 L111 33 Z" fill="#f5c518"/><path d="M79 33 L83 61 L107 61 L111 33 Z" fill="rgba(255,235,100,0.5)"/>
+        <circle cx="88" cy="79" r="2.5" fill="rgba(255,220,50,0.4)"/><circle cx="97" cy="92" r="1.8" fill="rgba(255,220,50,0.3)"/>
+        <ellipse cx="95" cy="32" rx="19" ry="8.5" fill="white"/><ellipse cx="87" cy="26" rx="8" ry="6" fill="white"/><ellipse cx="103" cy="26" rx="8" ry="6" fill="white"/><ellipse cx="95" cy="21" rx="6" ry="4.5" fill="white"/>
+        <path d="M75 15 L82 3 L95 11 L108 3 L115 15 L111 23 L79 23 Z" fill="#f5c518" stroke="#c89008" stroke-width="1.5"/>
+        <circle cx="82" cy="2" r="3" fill="#f5c518" stroke="#c89008" stroke-width="1"/><circle cx="95" cy="-1" r="3" fill="#f5c518" stroke="#c89008" stroke-width="1"/><circle cx="108" cy="2" r="3" fill="#f5c518" stroke="#c89008" stroke-width="1"/>
+        <circle cx="33" cy="106" r="8" fill="#b8e04a" opacity=".9"/><circle cx="153" cy="102" r="7.5" fill="#b8e04a" opacity=".9"/><circle cx="167" cy="117" r="6" fill="#b8e04a" opacity=".8"/>
+        <ellipse cx="20" cy="99" rx="13" ry="4" fill="rgba(245,197,24,0.18)" transform="rotate(-18 20 99)"/>
+      </svg>
+    </div>
+    <h1 class="hero-title">PADEL CERVEJA<span>&amp; PETISCOS</span></h1>
+    <div class="hero-div"><div class="hero-div-line"></div><div class="hero-div-pill">Sign Up for Events</div><div class="hero-div-line"></div></div>
+    <p>Create your profile once · sign up in one tap · track your games</p>
+  </div>
+
+  <div class="pills" id="stats-row"></div>
+
+  <!-- Not logged in -->
+  <div id="home-guest" style="display:none">
+    <div style="background:var(--surface);border:1.5px solid var(--gb);border-radius:var(--r);padding:18px;text-align:center;margin-bottom:16px">
+      <div style="font-size:28px;margin-bottom:8px">👤</div>
+      <div style="font-weight:700;font-size:15px;margin-bottom:6px">Create your member profile</div>
+      <div style="font-size:12px;color:var(--gray);margin-bottom:14px;line-height:1.5">Save your details once and sign up to any event in just one tap. No need to re-enter your info every time.</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-gold btn-full" onclick="showView('profile')">Create Profile</button>
+        <button class="btn btn-ghost btn-full" onclick="showView('profile')">Log In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logged in quick info -->
+  <div id="home-member" style="display:none">
+    <div class="quick-signup" id="home-member-card"></div>
+  </div>
+
+  <div class="slabel">What are you joining?</div>
+  <div class="mode-row">
+    <div class="mode-btn active" id="mode-tournament" onclick="setMode('tournament')">
+      <div class="mb-icon">🏆</div><div class="mb-title">Tournament</div><div class="mb-sub">Opens 5 days before</div>
+    </div>
+    <div class="mode-btn" id="mode-game" onclick="setMode('game')">
+      <div class="mb-icon">🎮</div><div class="mb-title">Game</div><div class="mb-sub">Opens 1 day before</div>
+    </div>
+  </div>
+
+  <div class="slabel" id="elist-label">Select Tournament</div>
+  <div id="event-list"></div>
+
+  <!-- Signup form (shown after selecting event) -->
+  <div id="signup-form" style="display:none">
+    <div id="dup-warning" style="display:none" class="dup-warn">
+      <span style="font-size:18px;flex-shrink:0">⚠️</span>
+      <div><b>Already registered!</b><span id="dup-msg"></span></div>
+    </div>
+
+    <!-- If logged in: quick confirm card -->
+    <div id="sf-loggedin" style="display:none">
+      <div class="quick-signup">
+        <div class="qs-header">
+          <div class="qs-avatar" id="sf-avatar"></div>
+          <div><div class="qs-name" id="sf-name"></div><div class="qs-sub" id="sf-meta"></div></div>
+        </div>
+        <div class="fg">
+          <label>Category for this event</label>
+          <select id="sf-cat"><option value="">Select…</option><option>Men's Doubles</option><option>Women's Doubles</option><option>Mixed Doubles</option></select>
+        </div>
+      </div>
+    </div>
+
+    <!-- If guest: full form -->
+    <div id="sf-guest" style="display:none">
+      <div class="fbox">
+        <div class="ftitle">👤 Your Details</div>
+        <div class="frow">
+          <div class="fg"><label>First Name</label><input type="text" id="s-fname" placeholder="Maria" autocomplete="given-name" oninput="checkDup()"></div>
+          <div class="fg"><label>Last Name</label><input type="text" id="s-lname" placeholder="Sanchez" autocomplete="family-name" oninput="checkDup()"></div>
+        </div>
+        <div class="fg">
+          <label>WhatsApp Number</label>
+          <div class="phone-row">
+            <select class="cc" id="s-cc" onchange="checkDup()">
+              <option value="1">🇺🇸 +1</option><option value="34" selected>🇪🇸 +34</option><option value="33">🇫🇷 +33</option>
+              <option value="49">🇩🇪 +49</option><option value="44">🇬🇧 +44</option><option value="31">🇳🇱 +31</option>
+              <option value="32">🇧🇪 +32</option><option value="351">🇵🇹 +351</option><option value="39">🇮🇹 +39</option>
+              <option value="971">🇦🇪 +971</option><option value="61">🇦🇺 +61</option><option value="55">🇧🇷 +55</option><option value="54">🇦🇷 +54</option>
+            </select>
+            <input type="tel" id="s-phone" placeholder="612 345 678" autocomplete="tel" oninput="checkDup()">
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label>Skill Level</label>
+            <select id="s-level"><option value="">Select…</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>Pro</option></select>
+          </div>
+          <div class="fg"><label>Category</label>
+            <select id="s-cat-guest"><option value="">Select…</option><option>Men's Doubles</option><option>Women's Doubles</option><option>Mixed Doubles</option></select>
+          </div>
+        </div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;text-transform:none;letter-spacing:0;font-size:12px;font-weight:500;color:var(--gray)">
+            <input type="checkbox" id="s-save" style="width:auto;padding:0;accent-color:var(--gold)">
+            Save my profile so I don't have to fill this in again
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Partner section (shared) -->
+    <div class="fbox">
+      <div class="ftitle">🤝 Partner</div>
+      <div class="tog-row" id="partner-tog" onclick="togglePartner()">
+        <div><div class="tog-title">Select a partner</div><div class="tog-sub">Choose from registered players</div></div>
+        <div class="tog-sw"></div>
+      </div>
+      <div id="partner-form" style="display:none;margin-top:10px">
+        <div class="fg">
+          <label>Search Registered Players</label>
+          <div class="partner-wrap">
+            <input type="text" id="p-search" placeholder="Type a name to search…" oninput="filterPartners()" autocomplete="off">
+            <div class="partner-dd" id="partner-dd" style="display:none"></div>
+          </div>
+        </div>
+        <div id="partner-selected" style="display:none;margin-top:7px">
+          <div style="background:var(--gd);border:1px solid var(--gb);border-radius:var(--rs);padding:9px 12px;display:flex;align-items:center;justify-content:space-between">
+            <div><div style="font-weight:700;font-size:13px" id="p-sel-name">—</div><div style="font-size:11px;color:var(--gray)" id="p-sel-meta">—</div></div>
+            <button class="btn btn-ghost btn-sm" onclick="clearPartner()">✕ Clear</button>
+          </div>
+        </div>
+        <div class="partner-note" style="margin-top:8px"><span style="font-size:16px;flex-shrink:0">💬</span><span>Your partner gets a <b>WhatsApp invite</b> and must confirm in the Partners tab.</span></div>
+      </div>
+    </div>
+
+    <button class="btn btn-wa" onclick="submitSignup()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Confirm Registration via WhatsApp
+    </button>
+    <p class="wa-note">Opens WhatsApp with your registration pre-filled. Admin confirms your spot.</p>
+  </div>
+
+  <div class="success" id="signup-success" style="display:none">
+    <div class="success-ico">🍺🎾</div>
+    <div class="success-title">YOU'RE IN!</div>
+    <p class="success-sub">Registration sent via WhatsApp.<br>Partner invite sent if you selected one.<br><br>See you on the court! 🏆</p>
+    <button class="btn btn-gold" style="margin-top:18px;padding:11px 24px" onclick="resetSignup()">Sign Up for Another Event</button>
+  </div>
+</div>
+
+<!-- ══════════ PROFILE VIEW ══════════ -->
+<div class="view" id="view-profile">
+  <!-- Auth (not logged in) -->
+  <div id="profile-auth">
+    <div class="auth-screen">
+      <div class="auth-welcome">
+        <div class="aw-ico">🎾</div>
+        <h2>MEMBER AREA</h2>
+        <p>Create your profile to sign up faster and track your games</p>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="at-login" onclick="switchAuthTab('login')">Log In</button>
+        <button class="auth-tab" id="at-register" onclick="switchAuthTab('register')">Create Profile</button>
+      </div>
+
+      <!-- Login form -->
+      <div id="auth-login">
+        <div class="fg" style="margin-bottom:10px"><label>WhatsApp Number</label>
+          <div class="phone-row">
+            <select class="cc" id="l-cc"><option value="34" selected>🇪🇸 +34</option><option value="1">🇺🇸 +1</option><option value="44">🇬🇧 +44</option><option value="33">🇫🇷 +33</option><option value="31">🇳🇱 +31</option><option value="351">🇵🇹 +351</option><option value="49">🇩🇪 +49</option><option value="55">🇧🇷 +55</option><option value="54">🇦🇷 +54</option></select>
+            <input type="tel" id="l-phone" placeholder="612 345 678">
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:14px"><label>Password</label><input type="password" id="l-pass" placeholder="Your password" onkeydown="if(event.key==='Enter')loginMember()"></div>
+        <button class="btn btn-gold btn-full" onclick="loginMember()">Log In →</button>
+        <div id="l-error" style="font-size:12px;color:var(--red);margin-top:8px;text-align:center;min-height:16px"></div>
+      </div>
+
+      <!-- Register form -->
+      <div id="auth-register" style="display:none">
+        <div class="frow" style="margin-bottom:10px">
+          <div class="fg"><label>First Name</label><input type="text" id="r-fname" placeholder="Maria"></div>
+          <div class="fg"><label>Last Name</label><input type="text" id="r-lname" placeholder="Sanchez"></div>
+        </div>
+        <div class="fg" style="margin-bottom:10px"><label>WhatsApp Number</label>
+          <div class="phone-row">
+            <select class="cc" id="r-cc"><option value="34" selected>🇪🇸 +34</option><option value="1">🇺🇸 +1</option><option value="44">🇬🇧 +44</option><option value="33">🇫🇷 +33</option><option value="31">🇳🇱 +31</option><option value="351">🇵🇹 +351</option><option value="49">🇩🇪 +49</option><option value="55">🇧🇷 +55</option><option value="54">🇦🇷 +54</option></select>
+            <input type="tel" id="r-phone" placeholder="612 345 678">
+          </div>
+        </div>
+        <div class="frow" style="margin-bottom:10px">
+          <div class="fg"><label>Skill Level</label>
+            <select id="r-level"><option value="">Select…</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>Pro</option></select>
+          </div>
+          <div class="fg"><label>Preferred Category</label>
+            <select id="r-cat"><option value="">Select…</option><option>Men's Doubles</option><option>Women's Doubles</option><option>Mixed Doubles</option></select>
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:14px"><label>Password</label><input type="password" id="r-pass" placeholder="Choose a password" onkeydown="if(event.key==='Enter')registerMember()"></div>
+        <button class="btn btn-gold btn-full" onclick="registerMember()">Create Profile →</button>
+        <div id="r-error" style="font-size:12px;color:var(--red);margin-top:8px;text-align:center;min-height:16px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logged in profile -->
+  <div id="profile-member" style="display:none">
+    <div class="vheader"><h1>MY<span>PROFILE</span></h1></div>
+
+    <div class="profile-card" id="profile-card"></div>
+
+    <div class="slabel">My Registrations</div>
+    <div id="my-registrations"></div>
+
+    <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-ghost btn-sm" onclick="openEditProfile()">✏️ Edit Profile</button>
+      <button class="btn btn-danger btn-sm" onclick="logoutMember()">Sign Out</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PARTNERS VIEW ══════════ -->
+<div class="view" id="view-partner">
+  <div class="vheader"><h1>PARTNER<span>REQUESTS</span></h1><p>Accept or decline pairing invitations</p></div>
+  <div id="partner-requests-list"></div>
+</div>
+
+<!-- ══════════ ADMIN VIEW ══════════ -->
+<div class="view" id="view-admin">
+  <div id="admin-pin-screen">
+    <div class="pin-screen">
+      <div style="font-size:44px;margin-bottom:6px">🔐</div>
+      <div class="pin-title">ADMIN ACCESS</div>
+      <div class="pin-sub">Enter your 4-digit PIN</div>
+      <div class="pin-dots" id="pin-dots"><div class="pin-dot" id="pd0"></div><div class="pin-dot" id="pd1"></div><div class="pin-dot" id="pd2"></div><div class="pin-dot" id="pd3"></div></div>
+      <div class="pin-pad">
+        <button class="pin-key" onclick="pinPress('1')">1</button><button class="pin-key" onclick="pinPress('2')">2</button><button class="pin-key" onclick="pinPress('3')">3</button>
+        <button class="pin-key" onclick="pinPress('4')">4</button><button class="pin-key" onclick="pinPress('5')">5</button><button class="pin-key" onclick="pinPress('6')">6</button>
+        <button class="pin-key" onclick="pinPress('7')">7</button><button class="pin-key" onclick="pinPress('8')">8</button><button class="pin-key" onclick="pinPress('9')">9</button>
+        <button class="pin-key del" onclick="pinPress('lock')">🔒</button><button class="pin-key" onclick="pinPress('0')">0</button><button class="pin-key del" onclick="pinPress('del')">⌫</button>
+      </div>
+      <div class="pin-error" id="pin-error"></div>
+      <div style="margin-top:14px;font-size:11px;color:var(--gray)">Default PIN: <b style="color:var(--gold)">1234</b></div>
+    </div>
+  </div>
+  <div id="admin-panel" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--gold);letter-spacing:1px">ADMIN PANEL</div>
+      <button class="btn btn-ghost btn-sm" onclick="lockAdmin()">🔒 Lock</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <button class="btn btn-gold" style="flex:1" onclick="openCreateModal()">＋ Create Event</button>
+      <button class="btn btn-ghost btn-sm" onclick="openPinChangeModal()">🔑 PIN</button>
+    </div>
+    <div class="slabel">Members ({{ count }})</div>
+    <div id="admin-members-list"></div>
+    <div id="admin-content"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal" id="modal-inner">
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-sub" id="modal-sub"></div>
+    <div id="modal-body"></div>
+    <div class="modal-actions" id="modal-actions"></div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════
+const ADMIN_WA = '34600000000';
+const APP_URL  = 'https://iipthelp-sys.github.io/padel-cerveja-app/';
+
+// ════════════════════════════════════
+// STATE
+// ════════════════════════════════════
+let state   = loadState();
+let profile = loadProfile(); // currently logged-in member
+
+function loadState() {
+  try { const s=localStorage.getItem('pcp_v5'); if(s) return JSON.parse(s); } catch(e){}
+  return defaultState();
+}
+function defaultState() {
+  return {
+    adminPin:'1234',
+    members:[],   // registered member profiles
+    events:[
+      {id:'e1',type:'tournament',name:'Cerveja Open',      date:daysFromNow(3), time:'09:00–18:00',capacity:16,prize:'🍺 Free beers',formats:['Doubles','Americano'],activeFormat:'Doubles',  courts:['Top Court','Outside Court','Court 3','Court 4'],registrations:[]},
+      {id:'e2',type:'tournament',name:'Club Championship', date:daysFromNow(4), time:'10:00–17:00',capacity:12,prize:'🏆 Trophy',    formats:['Doubles','Americano'],activeFormat:'Americano',courts:['Court A','Court B','Court C'],registrations:[]},
+      {id:'e3',type:'game',      name:'Friday Night Padel',date:daysFromNow(1), time:'19:00–22:00',capacity:8, prize:'',             formats:['Doubles','Americano'],activeFormat:'Americano',courts:['Inside','Outside'],registrations:[]},
+      {id:'e4',type:'tournament',name:'Rookie Cup',        date:daysFromNow(10),time:'10:00–15:00',capacity:16,prize:'🥇 Medals',    formats:['Doubles','Americano'],activeFormat:'Doubles',  courts:['Court 1','Court 2','Court 3','Court 4'],registrations:[]}
+    ],
+    partnerRequests:[]
+  };
+}
+
+function loadProfile() {
+  try { const p=localStorage.getItem('pcp_profile'); if(p) return JSON.parse(p); } catch(e) {}
+  return null;
+}
+
+function saveState()   { localStorage.setItem('pcp_v5',JSON.stringify(state)); }
+function saveProfile() { if(profile) localStorage.setItem('pcp_profile',JSON.stringify(profile)); else localStorage.removeItem('pcp_profile'); }
+
+function getEvent(id)  { return state.events.find(e=>e.id===id); }
+function getMember(id) { return state.members.find(m=>m.id===id); }
+
+function daysFromNow(n){ const d=new Date(); d.setDate(d.getDate()+n); return d.toISOString().split('T')[0]; }
+function daysUntil(s)  { const d=new Date(s); d.setHours(0,0,0,0); const n=new Date(); n.setHours(0,0,0,0); return Math.round((d-n)/86400000); }
+function isOpen(ev)    { const d=daysUntil(ev.date); return d>=0&&d<=(ev.type==='game'?1:5); }
+function fmtDate(s)    { return new Date(s).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}); }
+function initials(fn,ln){ return ((fn||'')[0]+(ln||'')[0]).toUpperCase(); }
+function hashPass(p)   { let h=0; for(let i=0;i<p.length;i++){h=((h<<5)-h)+p.charCodeAt(i);h|=0;} return h.toString(36); }
+
+function toast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2600); }
+function showModal(title,sub,body,actions){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-sub').innerHTML=sub;
+  document.getElementById('modal-body').innerHTML=body;
+  document.getElementById('modal-actions').innerHTML=actions;
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal(){ document.getElementById('modal-bg').classList.remove('open'); }
+document.getElementById('modal-bg').addEventListener('click',e=>{ if(e.target===document.getElementById('modal-bg')) closeModal(); });
+
+// ════════════════════════════════════
+// NAV
+// ════════════════════════════════════
+let currentView='home', selectedEId=null, signupMode='tournament', wantsPartner=false, selectedPartnerId=null;
+
+function showView(v) {
+  currentView=v;
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  const navMap={home:'nav-home',partner:'nav-partner',admin:'nav-admin',profile:null};
+  if(navMap[v]) document.getElementById(navMap[v]).classList.add('active');
+  if(v==='home')    renderHomeView();
+  if(v==='profile') renderProfileView();
+  if(v==='partner') renderPartnerView();
+  if(v==='admin')   renderAdminView();
+}
+
+function updateNavAvatar() {
+  const av=document.getElementById('nav-avatar');
+  if(profile){ av.textContent=initials(profile.fname,profile.lname); av.title=profile.fname+' '+profile.lname; }
+  else { av.textContent='?'; av.title='Sign In'; }
+}
+
+// ════════════════════════════════════
+// PROFILE / AUTH
+// ════════════════════════════════════
+function switchAuthTab(tab) {
+  document.getElementById('at-login').classList.toggle('active',tab==='login');
+  document.getElementById('at-register').classList.toggle('active',tab==='register');
+  document.getElementById('auth-login').style.display=tab==='login'?'block':'none';
+  document.getElementById('auth-register').style.display=tab==='register'?'block':'none';
+  document.getElementById('l-error').textContent='';
+  document.getElementById('r-error').textContent='';
+}
+
+function registerMember() {
+  const fname=(document.getElementById('r-fname').value||'').trim();
+  const lname=(document.getElementById('r-lname').value||'').trim();
+  const phone=(document.getElementById('r-phone').value||'').trim();
+  const cc=document.getElementById('r-cc').value;
+  const level=document.getElementById('r-level').value;
+  const cat=document.getElementById('r-cat').value;
+  const pass=(document.getElementById('r-pass').value||'').trim();
+  const err=document.getElementById('r-error');
+  if(!fname||!lname||!phone){err.textContent='Please fill in name and phone';return;}
+  if(!level||!cat){err.textContent='Please select your level and preferred category';return;}
+  if(!pass||pass.length<4){err.textContent='Password must be at least 4 characters';return;}
+  // check duplicate phone
+  if(state.members.find(m=>m.cc===cc&&m.phone===phone)){err.textContent='A profile with this number already exists. Please log in.';return;}
+  const member={ id:'m_'+Date.now(), fname, lname, phone, cc, level, preferredCat:cat, passHash:hashPass(pass), joinedAt:new Date().toISOString() };
+  state.members.push(member);
+  saveState();
+  profile=member; saveProfile();
+  updateNavAvatar();
+  toast(`Welcome, ${fname}! 🎾`);
+  renderProfileView();
+}
+
+function loginMember() {
+  const phone=(document.getElementById('l-phone').value||'').trim();
+  const cc=document.getElementById('l-cc').value;
+  const pass=(document.getElementById('l-pass').value||'').trim();
+  const err=document.getElementById('l-error');
+  const member=state.members.find(m=>m.cc===cc&&m.phone===phone);
+  if(!member){err.textContent='No profile found with this number.';return;}
+  if(member.passHash!==hashPass(pass)){err.textContent='Incorrect password.';return;}
+  profile=member; saveProfile();
+  updateNavAvatar();
+  toast(`Welcome back, ${member.fname}! 🎾`);
+  renderProfileView();
+}
+
+function logoutMember() {
+  profile=null; saveProfile(); updateNavAvatar();
+  renderProfileView(); renderHomeView();
+  toast('Signed out');
+}
+
+function openEditProfile() {
+  if(!profile) return;
+  showModal('Edit Profile','Update your member details.',`
+    <div class="frow" style="margin-bottom:9px">
+      <div class="fg"><label>First Name</label><input id="ep-fname" value="${profile.fname}"></div>
+      <div class="fg"><label>Last Name</label><input id="ep-lname" value="${profile.lname}"></div>
+    </div>
+    <div class="frow" style="margin-bottom:9px">
+      <div class="fg"><label>Level</label>
+        <select id="ep-level"><option value="">Select…</option>${['Beginner','Intermediate','Advanced','Pro'].map(l=>`<option ${profile.level===l?'selected':''}>${l}</option>`).join('')}</select>
+      </div>
+      <div class="fg"><label>Preferred Category</label>
+        <select id="ep-cat"><option value="">Select…</option>${["Men's Doubles","Women's Doubles","Mixed Doubles"].map(c=>`<option ${profile.preferredCat===c?'selected':''}>${c}</option>`).join('')}</select>
+      </div>
+    </div>
+    <div class="fg"><label>New Password (leave blank to keep)</label><input type="password" id="ep-pass" placeholder="New password…"></div>`,
+    `<button class="btn btn-gold" onclick="saveEditProfile()">Save</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);
+}
+
+function saveEditProfile() {
+  const fname=(document.getElementById('ep-fname').value||'').trim();
+  const lname=(document.getElementById('ep-lname').value||'').trim();
+  const level=document.getElementById('ep-level').value;
+  const cat=document.getElementById('ep-cat').value;
+  const pass=(document.getElementById('ep-pass').value||'').trim();
+  if(!fname||!lname){toast('⚠️ Name is required');return;}
+  const member=getMember(profile.id);
+  if(member){
+    member.fname=fname; member.lname=lname;
+    if(level) member.level=level;
+    if(cat) member.preferredCat=cat;
+    if(pass.length>=4) member.passHash=hashPass(pass);
+    saveState();
+    profile=member; saveProfile();
+  }
+  updateNavAvatar(); closeModal(); renderProfileView();
+  toast('Profile updated ✅');
+}
+
+function renderProfileView() {
+  if(!profile){
+    document.getElementById('profile-auth').style.display='block';
+    document.getElementById('profile-member').style.display='none';
+    switchAuthTab('login');
+    return;
+  }
+  document.getElementById('profile-auth').style.display='none';
+  document.getElementById('profile-member').style.display='block';
+
+  // Count registrations
+  const myRegs=[];
+  state.events.forEach(ev=>{
+    ev.registrations.forEach(r=>{
+      if(r.memberId===profile.id) myRegs.push({ev,reg:r});
+    });
+  });
+
+  // Profile card
+  document.getElementById('profile-card').innerHTML=`
+    <div class="pc-top">
+      <div class="pc-avatar">${initials(profile.fname,profile.lname)}</div>
+      <div>
+        <div class="pc-name">${profile.fname} ${profile.lname}</div>
+        <div class="pc-meta">📱 +${profile.cc} ${profile.phone} · ${profile.level}</div>
+      </div>
+    </div>
+    <div class="pc-stats">
+      <div class="pc-stat"><div class="pc-stat-val">${myRegs.length}</div><div class="pc-stat-lbl">Events</div></div>
+      <div class="pc-stat"><div class="pc-stat-val">${myRegs.filter(x=>daysUntil(x.ev.date)>=0).length}</div><div class="pc-stat-lbl">Upcoming</div></div>
+      <div class="pc-stat"><div class="pc-stat-val">${profile.level.slice(0,3)}</div><div class="pc-stat-lbl">Level</div></div>
+    </div>`;
+
+  // My registrations
+  const regEl=document.getElementById('my-registrations');
+  if(!myRegs.length){regEl.innerHTML=`<div class="empty"><div class="empty-ico">🎾</div>No event registrations yet.<br><button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="showView('home')">Browse Events →</button></div>`;return;}
+  regEl.innerHTML=myRegs.sort((a,b)=>new Date(a.ev.date)-new Date(b.ev.date)).map(({ev,reg})=>{
+    const days=daysUntil(ev.date);
+    const status=days<0?'Done':days===0?'Today':'Upcoming';
+    const statusColor=days<0?'var(--gray)':days===0?'var(--orange)':'var(--green)';
+    return `<div class="my-event-row">
+      <div style="font-size:22px">${ev.type==='game'?'🎮':'🏆'}</div>
+      <div class="my-event-info">
+        <div class="my-event-name">${ev.name} <span style="font-size:9px;font-weight:700;color:${statusColor};background:rgba(255,255,255,.06);padding:2px 7px;border-radius:100px;vertical-align:middle">${status}</span></div>
+        <div class="my-event-meta">${fmtDate(ev.date)} · ${reg.category} · ${reg.pairConfirmed?'✅ Confirmed':'⏳ Pending'}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════════
+// HOME VIEW
+// ════════════════════════════════════
+function renderHomeView() {
+  updateNavAvatar();
+  renderStats();
+  renderHomeHeader();
+  renderEventList();
+}
+
+function renderHomeHeader() {
+  const guest=document.getElementById('home-guest');
+  const mem=document.getElementById('home-member');
+  if(profile){
+    guest.style.display='none'; mem.style.display='block';
+    document.getElementById('home-member-card').innerHTML=`
+      <div class="qs-header">
+        <div class="qs-avatar">${initials(profile.fname,profile.lname)}</div>
+        <div>
+          <div class="qs-name">Hey, ${profile.fname}! 👋</div>
+          <div class="qs-sub">${profile.level} · ${profile.preferredCat}</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="showView('profile')">My Profile</button>
+      </div>`;
+  } else {
+    guest.style.display='block'; mem.style.display='none';
+  }
+}
+
+function renderStats() {
+  const total=state.events.reduce((a,e)=>a+e.registrations.length,0);
+  const spots=state.events.reduce((a,e)=>a+Math.max(0,e.capacity-e.registrations.length),0);
+  document.getElementById('stats-row').innerHTML=`
+    <div class="pill"><div class="pill-val">${state.events.length}</div><div class="pill-lbl">Events</div></div>
+    <div class="pill"><div class="pill-val">${total}</div><div class="pill-lbl">Registered</div></div>
+    <div class="pill"><div class="pill-val">${spots}</div><div class="pill-lbl">Spots Left</div></div>
+    <div class="pill"><div class="pill-val">${state.members.length}</div><div class="pill-lbl">Members</div></div>`;
+}
+
+function setMode(mode) {
+  signupMode=mode; selectedEId=null;
+  document.getElementById('mode-tournament').classList.toggle('active',mode==='tournament');
+  document.getElementById('mode-game').classList.toggle('active',mode==='game');
+  document.getElementById('elist-label').textContent=mode==='game'?'Select Game':'Select Tournament';
+  document.getElementById('signup-form').style.display='none';
+  document.getElementById('signup-success').style.display='none';
+  renderEventList();
+}
+
+function renderEventList() {
+  const list=document.getElementById('event-list');
+  const filtered=state.events.filter(e=>e.type===signupMode);
+  if(!filtered.length){list.innerHTML=`<div class="empty"><div class="empty-ico">${signupMode==='game'?'🎮':'🏆'}</div>No ${signupMode}s available yet.</div>`;return;}
+
+  list.innerHTML=filtered.map(ev=>{
+    const days=daysUntil(ev.date),open=isOpen(ev);
+    const pct=Math.round(ev.registrations.length/ev.capacity*100);
+    const left=ev.capacity-ev.registrations.length,full=left<=0,clickable=open&&!full;
+    const win=ev.type==='game'?1:5;
+    let badge,barColor;
+    if(!open&&days>win){badge=`<span class="badge b-closed">Opens in ${days-win}d</span>`;barColor='var(--gray2)';}
+    else if(days<0){badge=`<span class="badge b-closed">Closed</span>`;barColor='var(--gray2)';}
+    else if(full){badge=`<span class="badge b-full">Full</span>`;barColor='var(--red)';}
+    else if(pct>=60){badge=`<span class="badge b-filling">Filling</span>`;barColor='var(--orange)';}
+    else{badge=`<span class="badge b-open">Open</span>`;barColor='var(--gold)';}
+
+    // Check if current member is already signed up
+    const alreadyIn = profile && ev.registrations.find(r=>r.memberId===profile.id);
+    const fmtB=`<span class="badge b-format">${ev.activeFormat==='Americano'?'🔄':'🏅'} ${ev.activeFormat}</span>`;
+    const countdown=open&&!full?`<div class="ec-countdown ${days<=1?'hot':''}">${days===0?'⏱ Today!':days===1?'⏱ Tomorrow!':`⏱ ${days} days`}</div>`:'';
+    const courtsHtml=ev.courts.length?`<div class="ec-courts">${ev.courts.map(c=>`<span class="court-chip">${c}</span>`).join('')}</div>`:'';
+
+    return `<div class="ecard ${selectedEId===ev.id?'sel':''} ${!clickable&&!alreadyIn?'locked':''}" id="ecard-${ev.id}" onclick="${clickable&&!alreadyIn?`selectEvent('${ev.id}')`:''}" >
+      ${alreadyIn?`<div class="already-in">✅ Registered</div>`:
+        `<div class="ec-check"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l2.5 2.5L9 1" stroke="#0e0e0e" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>`}
+      <div class="ec-head"><div class="ec-name">${ev.name}</div><div class="ec-badges">${fmtB}${badge}</div></div>
+      ${countdown}
+      <div class="ec-meta"><span>📅 ${fmtDate(ev.date)}</span><span>🕘 ${ev.time}</span>${ev.prize?`<span>🏆 ${ev.prize}</span>`:''}<span>👥 ${ev.capacity} max</span></div>
+      ${courtsHtml}
+      <div class="ec-bar"><div class="ec-bar-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      <div class="ec-bar-label">${full?'No spots available':`${left} of ${ev.capacity} spots remaining`}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectEvent(id) {
+  selectedEId=id; selectedPartnerId=null; window._selPartnerReg=null;
+  document.querySelectorAll('.ecard').forEach(c=>c.classList.remove('sel'));
+  const card=document.getElementById('ecard-'+id); if(card) card.classList.add('sel');
+
+  // Reset partner
+  wantsPartner=false;
+  document.getElementById('partner-tog').classList.remove('on');
+  document.getElementById('partner-form').style.display='none';
+  document.getElementById('partner-selected').style.display='none';
+  document.getElementById('p-search').value='';
+  document.getElementById('dup-warning').style.display='none';
+
+  // Show correct form
+  const loggedIn=!!profile;
+  document.getElementById('sf-loggedin').style.display=loggedIn?'block':'none';
+  document.getElementById('sf-guest').style.display=loggedIn?'none':'block';
+
+  if(loggedIn){
+    document.getElementById('sf-avatar').textContent=initials(profile.fname,profile.lname);
+    document.getElementById('sf-name').textContent=`${profile.fname} ${profile.lname}`;
+    document.getElementById('sf-meta').textContent=`${profile.level} · +${profile.cc} ${profile.phone}`;
+    document.getElementById('sf-cat').value=profile.preferredCat||'';
+    // Check dup
+    const ev=getEvent(id);
+    if(ev.registrations.find(r=>r.memberId===profile.id)){
+      document.getElementById('dup-warning').style.display='flex';
+      document.getElementById('dup-msg').textContent=' You are already registered for this event.';
+    }
+  }
+
+  const f=document.getElementById('signup-form'); f.style.display='block';
+  document.getElementById('signup-success').style.display='none';
+  f.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function checkDup() {
+  if(!selectedEId) return;
+  const fname=(document.getElementById('s-fname').value||'').trim().toLowerCase();
+  const lname=(document.getElementById('s-lname').value||'').trim().toLowerCase();
+  const phone=(document.getElementById('s-phone').value||'').trim();
+  const cc=document.getElementById('s-cc').value;
+  const ev=getEvent(selectedEId); if(!ev) return;
+  const dup=ev.registrations.find(r=>(r.cc===cc&&r.phone===phone)||(r.fname.toLowerCase()===fname&&r.lname.toLowerCase()===lname&&fname.length>1&&lname.length>1));
+  const warn=document.getElementById('dup-warning');
+  if(dup){warn.style.display='flex';document.getElementById('dup-msg').textContent=` ${dup.fname} ${dup.lname} is already registered.`;}
+  else warn.style.display='none';
+}
+
+// ── PARTNER ──
+function togglePartner() {
+  wantsPartner=!wantsPartner;
+  document.getElementById('partner-tog').classList.toggle('on',wantsPartner);
+  document.getElementById('partner-form').style.display=wantsPartner?'block':'none';
+  if(wantsPartner){selectedPartnerId=null;document.getElementById('partner-selected').style.display='none';document.getElementById('p-search').value='';filterPartners();}
+}
+
+function filterPartners() {
+  if(!selectedEId) return;
+  const q=(document.getElementById('p-search').value||'').toLowerCase();
+  const ev=getEvent(selectedEId);
+  const selfPhone=profile?profile.phone:(document.getElementById('s-phone').value||'').trim();
+  const selfCC=profile?profile.cc:document.getElementById('s-cc').value;
+  const avail=ev.registrations.filter(r=>{
+    if(r.cc===selfCC&&r.phone===selfPhone) return false;
+    if(r.pairConfirmed&&r.partner) return false;
+    return true;
+  });
+  const filtered=q?avail.filter(r=>`${r.fname} ${r.lname}`.toLowerCase().includes(q)):avail;
+  const dd=document.getElementById('partner-dd');
+  if(!q&&!filtered.length){dd.style.display='none';return;}
+  dd.style.display='block';
+  dd.innerHTML=filtered.length
+    ?filtered.map(r=>`<div class="po" onclick="selectPartner('${r.id}','${r.fname} ${r.lname}','${r.level}','${r.cc}','${r.phone}')"><div class="po-name">${r.fname} ${r.lname}</div><div class="po-sub">${r.level} · ${r.category}</div></div>`).join('')
+    :`<div class="po empty">No registered players found${q?` matching "${q}"`:''}</div>`;
+}
+
+function selectPartner(id,name,level,cc,phone) {
+  selectedPartnerId=id;
+  const ev=getEvent(selectedEId);
+  window._selPartnerReg=ev.registrations.find(r=>r.id===id);
+  document.getElementById('p-search').value='';
+  document.getElementById('partner-dd').style.display='none';
+  document.getElementById('p-sel-name').textContent=name;
+  document.getElementById('p-sel-meta').textContent=`${level} · +${cc} ${phone}`;
+  document.getElementById('partner-selected').style.display='block';
+}
+
+function clearPartner() {
+  selectedPartnerId=null; window._selPartnerReg=null;
+  document.getElementById('partner-selected').style.display='none';
+  document.getElementById('p-search').value='';
+  document.getElementById('partner-dd').style.display='none';
+}
+
+document.addEventListener('click',e=>{
+  const dd=document.getElementById('partner-dd');
+  const ps=document.getElementById('p-search');
+  if(dd&&!dd.contains(e.target)&&e.target!==ps) dd.style.display='none';
+});
+
+// ── SUBMIT ──
+function submitSignup() {
+  if(!selectedEId){toast('⚠️ Please select an event');return;}
+  const ev=getEvent(selectedEId);
+
+  let fname,lname,phone,cc,level,cat,memberId=null;
+
+  if(profile){
+    // Logged in — use profile
+    fname=profile.fname; lname=profile.lname; phone=profile.phone; cc=profile.cc; level=profile.level;
+    cat=document.getElementById('sf-cat').value;
+    if(!cat){toast('⚠️ Please select a category');return;}
+    memberId=profile.id;
+    // dup check
+    if(ev.registrations.find(r=>r.memberId===profile.id)){toast('⚠️ You are already registered for this event!');return;}
+  } else {
+    fname=(document.getElementById('s-fname').value||'').trim();
+    lname=(document.getElementById('s-lname').value||'').trim();
+    phone=(document.getElementById('s-phone').value||'').trim();
+    cc=document.getElementById('s-cc').value;
+    level=document.getElementById('s-level').value;
+    cat=document.getElementById('s-cat-guest').value;
+    if(!fname||!lname||!phone||!level||!cat){toast('⚠️ Please fill in all fields');return;}
+    // dup check
+    const dup=ev.registrations.find(r=>(r.cc===cc&&r.phone===phone)||(r.fname.toLowerCase()===fname.toLowerCase()&&r.lname.toLowerCase()===lname.toLowerCase()));
+    if(dup){toast('⚠️ Already registered for this event!');return;}
+    // Save profile if checkbox ticked
+    const save=document.getElementById('s-save').checked;
+    if(save){
+      // Create or update member
+      let member=state.members.find(m=>m.cc===cc&&m.phone===phone);
+      if(!member){
+        member={id:'m_'+Date.now(),fname,lname,phone,cc,level,preferredCat:cat,passHash:hashPass(phone.slice(-4)),joinedAt:new Date().toISOString()};
+        state.members.push(member);
+        toast(`Profile saved! Your default password is the last 4 digits of your number.`);
+      }
+      profile=member; saveProfile(); updateNavAvatar();
+      memberId=member.id;
+    }
+  }
+
+  const pid='p_'+Date.now();
+  let pi=null;
+  if(wantsPartner&&selectedPartnerId&&window._selPartnerReg){
+    const pr=window._selPartnerReg;
+    pi={fname:pr.fname,lname:pr.lname,phone:pr.phone,cc:pr.cc,status:'pending',registeredId:pr.id};
+  } else if(wantsPartner&&!selectedPartnerId){toast('⚠️ Please select a partner from the list');return;}
+
+  ev.registrations.push({id:pid,fname,lname,phone,cc,level,category:cat,memberId,partner:pi,pairConfirmed:!pi,registeredAt:new Date().toISOString()});
+
+  if(pi){
+    state.partnerRequests.push({
+      id:'pr_'+Date.now(),eventId:selectedEId,eventName:ev.name,eventDate:ev.date,eventType:ev.type,
+      fromName:`${fname} ${lname}`,fromPhone:`${cc}${phone}`,
+      toName:`${pi.fname} ${pi.lname}`,toPhone:`${pi.cc}${pi.phone}`,
+      playerId:pid,status:'pending',createdAt:new Date().toISOString()
+    });
+  }
+  saveState();
+
+  const typeL=ev.type==='game'?'🎮 GAME':'🏆 TOURNAMENT';
+  let msg=`🎾🍺 *PADEL CERVEJA & PETISCOS*\n*NEW ${typeL} REGISTRATION*\n\n`;
+  msg+=`*Event:* ${ev.name}\n*Date:* ${fmtDate(ev.date)} · ${ev.time}\n*Format:* ${ev.activeFormat}\n`;
+  if(ev.prize) msg+=`*Prize:* ${ev.prize}\n`;
+  if(ev.courts.length) msg+=`*Courts:* ${ev.courts.join(', ')}\n`;
+  msg+=`\n━━━━━━━━━━━━━━━\n*Player:* ${fname} ${lname}\n*Level:* ${level}\n*Category:* ${cat}\n*Phone:* +${cc} ${phone}\n`;
+  if(pi) msg+=`\n*Partner Requested:* ${pi.fname} ${pi.lname}\n*(Awaiting confirmation)*\n`;
+  msg+=`\n*ID:* ${pid}\n\nPlease confirm my spot! 🙏🍺`;
+
+  if(pi){
+    const pMsg=`🎾 *PADEL CERVEJA & PETISCOS*\n\n🤝 *You've been invited as a partner!*\n\n*${fname} ${lname}* wants to pair up with you!\n\n*Event:* ${ev.name}\n*Date:* ${fmtDate(ev.date)}\n*Format:* ${ev.activeFormat}\n${ev.prize?`*Prize:* ${ev.prize}\n`:''}\n━━━━━━━━━━━━━━━\n*To confirm your pair:*\n\n1️⃣ Open the app:\n${APP_URL}\n\n2️⃣ Tap the *Partners* tab\n\n3️⃣ Hit ✅ *Accept Pair*\n\nSee you on the court! 🍺🎾`;
+    window.open(`https://wa.me/${pi.cc}${pi.phone}?text=${encodeURIComponent(pMsg)}`,'_blank');
+    setTimeout(()=>window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,'_blank'),700);
+  } else {
+    window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,'_blank');
+  }
+
+  document.getElementById('signup-form').style.display='none';
+  document.getElementById('signup-success').style.display='block';
+  document.getElementById('signup-success').scrollIntoView({behavior:'smooth'});
+  renderStats(); renderEventList();
+  if(profile) renderHomeHeader();
+}
+
+function resetSignup(){
+  selectedEId=null;wantsPartner=false;selectedPartnerId=null;window._selPartnerReg=null;
+  ['s-fname','s-lname','s-phone','p-search'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  const sl=document.getElementById('s-level');if(sl)sl.value='';
+  const sc=document.getElementById('s-cat-guest');if(sc)sc.value='';
+  document.getElementById('partner-tog').classList.remove('on');
+  document.getElementById('partner-form').style.display='none';
+  document.getElementById('partner-selected').style.display='none';
+  document.getElementById('dup-warning').style.display='none';
+  document.getElementById('signup-form').style.display='none';
+  document.getElementById('signup-success').style.display='none';
+  renderEventList();window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ════════════════════════════════════
+// PARTNERS
+// ════════════════════════════════════
+function renderPartnerView(){
+  const el=document.getElementById('partner-requests-list');
+  const pending=state.partnerRequests.filter(r=>r.status==='pending');
+  const done=state.partnerRequests.filter(r=>r.status!=='pending');
+  if(!state.partnerRequests.length){el.innerHTML=`<div class="empty"><div class="empty-ico">🤝</div>No partner requests yet.</div>`;return;}
+  let html='';
+  if(pending.length){
+    html+=`<div class="slabel">Pending (${pending.length})</div>`;
+    html+=pending.map(r=>`<div class="invite-box"><div class="inv-from">Partner request from</div><div class="inv-name">⚡ ${r.fromName}</div><div class="inv-tour">${r.eventType==='game'?'🎮':'🏆'} ${r.eventName} · ${fmtDate(r.eventDate)}</div><div style="margin-top:7px;font-size:12px;color:var(--gray)">For: <b style="color:var(--white)">${r.toName}</b></div><div class="inv-actions"><button class="btn btn-gold" onclick="respondPartner('${r.id}','accepted')">✅ Accept</button><button class="btn btn-danger btn-sm" onclick="respondPartner('${r.id}','declined')">✕ Decline</button></div></div>`).join('');
+  }
+  if(done.length){
+    html+=`<div class="slabel">Handled</div>`;
+    html+=done.map(r=>`<div class="invite-box handled"><div class="inv-name">${r.fromName} ↔ ${r.toName}</div><div class="inv-tour">${r.eventName}</div><div style="margin-top:7px"><span class="badge ${r.status==='accepted'?'b-open':'b-full'}">${r.status==='accepted'?'✅ Paired':'✕ Declined'}</span></div></div>`).join('');
+  }
+  el.innerHTML=html;
+}
+
+function respondPartner(reqId,response){
+  const req=state.partnerRequests.find(r=>r.id===reqId);if(!req)return;
+  req.status=response;
+  if(response==='accepted'){
+    const ev=getEvent(req.eventId);
+    if(ev){const reg=ev.registrations.find(r=>r.id===req.playerId);if(reg&&reg.partner){reg.partner.status='accepted';reg.pairConfirmed=true;}}
+    const msg=`✅ *PARTNER CONFIRMED!*\n\n${req.toName} accepted your partner request!\n\n*Event:* ${req.eventName}\n*Date:* ${fmtDate(req.eventDate)}\n\nYou're officially paired! 🤝\n\n👉 Check the lineup:\n${APP_URL}\n\nSee you on the court 🎾🍺`;
+    window.open(`https://wa.me/${req.fromPhone}?text=${encodeURIComponent(msg)}`,'_blank');
+    toast('✅ Pair confirmed!');
+  } else{toast('Request declined');}
+  saveState();renderPartnerView();
+}
+
+// ════════════════════════════════════
+// ADMIN PIN
+// ════════════════════════════════════
+let pinEntry='',adminUnlocked=false;
+
+function renderAdminView(){
+  if(adminUnlocked){
+    document.getElementById('admin-pin-screen').style.display='none';
+    document.getElementById('admin-panel').style.display='block';
+    renderAdminContent();
+  } else {
+    document.getElementById('admin-pin-screen').style.display='block';
+    document.getElementById('admin-panel').style.display='none';
+    pinEntry='';updatePinDots();
+  }
+}
+
+function pinPress(key){
+  if(key==='del'){pinEntry=pinEntry.slice(0,-1);clearPinErr();}
+  else if(key==='lock'){lockAdmin();return;}
+  else{if(pinEntry.length>=4)return;pinEntry+=key;}
+  updatePinDots();
+  if(pinEntry.length===4) setTimeout(checkPin,120);
+}
+function updatePinDots(err=false){for(let i=0;i<4;i++){const d=document.getElementById('pd'+i);d.className='pin-dot';if(err)d.classList.add('error');else if(i<pinEntry.length)d.classList.add('filled');}}
+function checkPin(){
+  if(pinEntry===state.adminPin){adminUnlocked=true;renderAdminView();}
+  else{updatePinDots(true);document.getElementById('pin-error').textContent='Incorrect PIN.';setTimeout(()=>{pinEntry='';updatePinDots();clearPinErr();},1200);}
+}
+function clearPinErr(){document.getElementById('pin-error').textContent='';}
+function lockAdmin(){adminUnlocked=false;pinEntry='';renderAdminView();toast('Admin locked');}
+function openPinChangeModal(){showModal('Change PIN','Enter a new 4-digit PIN.',`<div class="fg"><label>New PIN</label><input id="new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="4 digits" style="letter-spacing:6px;font-size:20px;text-align:center"></div><div class="fg"><label>Confirm PIN</label><input id="confirm-pin" type="password" inputmode="numeric" maxlength="4" placeholder="4 digits" style="letter-spacing:6px;font-size:20px;text-align:center"></div>`,`<button class="btn btn-gold" onclick="saveNewPin()">Save</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);}
+function saveNewPin(){const np=(document.getElementById('new-pin').value||'').trim();const cp=(document.getElementById('confirm-pin').value||'').trim();if(!/^\d{4}$/.test(np)){toast('⚠️ PIN must be 4 digits');return;}if(np!==cp){toast('⚠️ PINs do not match');return;}state.adminPin=np;saveState();closeModal();toast('✅ PIN updated');}
+
+// ════════════════════════════════════
+// ADMIN CONTENT
+// ════════════════════════════════════
+function renderAdminContent(){
+  // Members list
+  const ml=document.getElementById('admin-members-list');
+  if(!state.members.length){ml.innerHTML=`<div style="font-size:12px;color:var(--gray);margin-bottom:14px">No members registered yet.</div>`;}
+  else{ml.innerHTML=`<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">${state.members.map(m=>`<div style="background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:7px 11px;font-size:12px;display:flex;align-items:center;gap:7px"><div style="width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#0e0e0e">${initials(m.fname,m.lname)}</div><div><div style="font-weight:600">${m.fname} ${m.lname}</div><div style="color:var(--gray);font-size:10px">${m.level} · +${m.cc}${m.phone}</div></div></div>`).join('')}</div>`;}
+
+  const el=document.getElementById('admin-content');
+  if(!state.events.length){el.innerHTML=`<div class="empty"><div class="empty-ico">📋</div>No events yet.</div>`;return;}
+
+  el.innerHTML=state.events.map(ev=>{
+    const confirmed=getConfirmedPairs(ev),pending=ev.registrations.filter(r=>!r.pairConfirmed);
+    const days=daysUntil(ev.date),dayLabel=days<0?'Done':days===0?'Today':`${days}d`;
+    const win=ev.type==='game'?1:5;
+    const dayBadge=days<0?'b-closed':days<=win?'b-open':'b-filling';
+    return `<div class="admin-card">
+      <div class="ac-head">
+        <div><div class="ac-name">${ev.type==='game'?'🎮':'🏆'} ${ev.name} <span class="badge b-format" style="font-size:9px;vertical-align:middle">${ev.activeFormat}</span></div><div class="ac-meta">${fmtDate(ev.date)} · ${ev.registrations.length}/${ev.capacity} players</div></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px"><span class="badge ${dayBadge}">${dayLabel}</span><button class="btn btn-danger btn-sm" style="padding:4px 9px;font-size:11px" onclick="deleteEvent('${ev.id}')">🗑</button></div>
+      </div>
+      <div class="slabel" style="margin-top:0">Format</div>
+      <div class="fmt-row">${ev.formats.map(f=>`<div class="fmt-btn ${ev.activeFormat===f?'active':''}" onclick="setFormat('${ev.id}','${f}')">${f==='Americano'?'🔄':'🏅'} ${f}</div>`).join('')}</div>
+      <div class="slabel">Courts</div>
+      <div class="admin-courts">
+        <div class="admin-court-tags">${ev.courts.map((c,i)=>`<div class="admin-ct"><input type="text" value="${c}" onblur="renameCourt('${ev.id}',${i},this.value)" onkeydown="if(event.key==='Enter')this.blur()"><button class="admin-ct-del" onclick="removeCourt('${ev.id}',${i})">×</button></div>`).join('')}${!ev.courts.length?`<span style="font-size:11px;color:var(--gray);font-style:italic">No courts yet</span>`:''}</div>
+        <div style="display:flex;gap:7px"><input id="nci-${ev.id}" placeholder="Add court…" style="flex:1;padding:7px 11px;font-size:12px" onkeydown="if(event.key==='Enter')addCourt('${ev.id}')"><button class="btn btn-gold btn-sm" onclick="addCourt('${ev.id}')">+ Add</button></div>
+      </div>
+      <div class="slabel">Players (${ev.registrations.length}/${ev.capacity}) <button class="btn btn-gold btn-sm" style="margin-left:8px;vertical-align:middle" onclick="openAddPlayerModal('${ev.id}')">＋ Add</button></div>
+      ${ev.registrations.length===0?`<div class="empty" style="padding:10px;font-size:12px">No players yet</div>`:ev.registrations.map((r,i)=>`<div class="player-row"><div class="player-num">${i+1}</div><div class="player-info"><div class="player-name">${r.fname} ${r.lname}<span class="player-badge ${r.pairConfirmed?'':'pending'}">${r.pairConfirmed?'✅':'⏳'}</span>${r.memberId?`<span class="player-badge member">👤 Member</span>`:''}</div><div class="player-meta">+${r.cc}${r.phone} · ${r.level} · ${r.category}</div></div><button class="btn btn-danger btn-sm" style="padding:4px 8px;font-size:11px" onclick="removePlayer('${ev.id}','${r.id}')">✕</button></div>`).join('')}
+      ${confirmed.length?`<div class="slabel">Court Assignment</div>${confirmed.map((pair,i)=>`<div class="pair-row"><div class="pair-num">${i+1}</div><div style="flex:1"><div class="pair-names">${pair[0].fname} ${pair[0].lname}${pair[1]?` &amp; ${pair[1].fname} ${pair[1].lname}`:' (solo)'}</div><div class="pair-sub">${pair[0].level} · ${pair[0].category}</div></div><select class="court-sel" onchange="assignCourt('${ev.id}','${pair[0].id}',this.value)" onclick="event.stopPropagation()"><option value="">— Court —</option>${ev.courts.map(c=>`<option value="${c}" ${pair[0].assignedCourt===c?'selected':''}>${c}</option>`).join('')}</select></div>`).join('')}`:''}
+      ${pending.length?`<div class="slabel">Awaiting Confirmation (${pending.length})</div>${pending.map(r=>`<div class="pair-row" style="opacity:.55"><div class="sdot sdot-pending"></div><div class="pair-names">${r.fname} ${r.lname}${r.partner?` → ${r.partner.fname} ${r.partner.lname}`:''}</div></div>`).join('')}`:''}
+      <div class="admin-actions">
+        <button class="btn btn-gold btn-sm" onclick="generateLineup('${ev.id}')">⚡ Lineup</button>
+        <button class="btn btn-wa btn-sm" style="width:auto;padding:6px 12px" onclick="postLineupWA('${ev.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Post WA</button>
+        <button class="btn btn-ghost btn-sm" onclick="clearRegs('${ev.id}')">🗑 Clear</button>
+      </div>
+      <div id="lineup-${ev.id}"></div>
+    </div>`;
+  }).join('');
+}
+
+function addCourt(eid){const inp=document.getElementById('nci-'+eid);const n=(inp.value||'').trim();if(!n){toast('⚠️ Enter a court name');return;}const ev=getEvent(eid);if(ev.courts.includes(n)){toast('Already exists');return;}ev.courts.push(n);inp.value='';saveState();renderAdminContent();toast(`"${n}" added`);}
+function removeCourt(eid,idx){const ev=getEvent(eid);const n=ev.courts[idx];ev.courts.splice(idx,1);ev.registrations.forEach(r=>{if(r.assignedCourt===n)r.assignedCourt='';});saveState();renderAdminContent();toast(`"${n}" removed`);}
+function renameCourt(eid,idx,nv){nv=(nv||'').trim();const ev=getEvent(eid);const old=ev.courts[idx];if(!nv||nv===old)return;ev.registrations.forEach(r=>{if(r.assignedCourt===old)r.assignedCourt=nv;});ev.courts[idx]=nv;saveState();renderAdminContent();toast(`Renamed → "${nv}"`);}
+function setFormat(eid,fmt){getEvent(eid).activeFormat=fmt;saveState();renderAdminContent();toast(`Format → ${fmt}`);}
+function assignCourt(eid,pid,court){const r=getEvent(eid).registrations.find(r=>r.id===pid);if(r){r.assignedCourt=court;saveState();}}
+
+function openAddPlayerModal(eid){
+  const ev=getEvent(eid);
+  if(ev.registrations.length>=ev.capacity){toast('⚠️ Event is full');return;}
+  showModal('Add Player',`Manually add to <b>${ev.name}</b>`,`
+    <div class="frow" style="margin-bottom:9px"><div class="fg"><label>First Name</label><input id="ap-fname" placeholder="Maria"></div><div class="fg"><label>Last Name</label><input id="ap-lname" placeholder="Sanchez"></div></div>
+    <div class="fg" style="margin-bottom:9px"><label>WhatsApp</label><div class="phone-row"><select class="cc" id="ap-cc"><option value="34" selected>🇪🇸 +34</option><option value="1">🇺🇸 +1</option><option value="44">🇬🇧 +44</option><option value="33">🇫🇷 +33</option><option value="31">🇳🇱 +31</option><option value="351">🇵🇹 +351</option><option value="55">🇧🇷 +55</option></select><input id="ap-phone" placeholder="612 345 678" type="tel"></div></div>
+    <div class="frow"><div class="fg"><label>Level</label><select id="ap-level"><option value="">…</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>Pro</option></select></div><div class="fg"><label>Category</label><select id="ap-cat"><option value="">…</option><option>Men's Doubles</option><option>Women's Doubles</option><option>Mixed Doubles</option></select></div></div>`,
+    `<button class="btn btn-gold" onclick="confirmAddPlayer('${eid}')">✅ Add</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);
+}
+
+function confirmAddPlayer(eid){
+  const ev=getEvent(eid);
+  const fname=(document.getElementById('ap-fname').value||'').trim(),lname=(document.getElementById('ap-lname').value||'').trim();
+  const phone=(document.getElementById('ap-phone').value||'').trim(),cc=document.getElementById('ap-cc').value;
+  const level=document.getElementById('ap-level').value,cat=document.getElementById('ap-cat').value;
+  if(!fname||!lname||!phone||!level||!cat){toast('⚠️ Fill in all fields');return;}
+  const dup=ev.registrations.find(r=>(r.cc===cc&&r.phone===phone)||(r.fname.toLowerCase()===fname.toLowerCase()&&r.lname.toLowerCase()===lname.toLowerCase()));
+  if(dup){toast(`⚠️ ${dup.fname} ${dup.lname} already registered`);return;}
+  // link to existing member if phone matches
+  const member=state.members.find(m=>m.cc===cc&&m.phone===phone);
+  ev.registrations.push({id:'a_'+Date.now(),fname,lname,phone,cc,level,category:cat,memberId:member?member.id:null,partner:null,pairConfirmed:true,addedByAdmin:true,registeredAt:new Date().toISOString()});
+  saveState();closeModal();renderAdminContent();renderStats();toast(`✅ ${fname} ${lname} added`);
+}
+
+function removePlayer(eid,pid){
+  const ev=getEvent(eid),reg=ev.registrations.find(r=>r.id===pid);if(!reg)return;
+  showModal('Remove Player',`Remove <b>${reg.fname} ${reg.lname}</b> from ${ev.name}?`,'',
+    `<button class="btn btn-danger" onclick="confirmRemovePlayer('${eid}','${pid}')">Remove</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);
+}
+function confirmRemovePlayer(eid,pid){
+  const ev=getEvent(eid),reg=ev.registrations.find(r=>r.id===pid);
+  const name=reg?`${reg.fname} ${reg.lname}`:'Player';
+  ev.registrations=ev.registrations.filter(r=>r.id!==pid);
+  state.partnerRequests=state.partnerRequests.filter(r=>r.playerId!==pid);
+  ev.registrations.forEach(r=>{if(r.partner&&r.partner.registeredId===pid){r.partner=null;r.pairConfirmed=true;}});
+  saveState();closeModal();renderAdminContent();renderStats();toast(`${name} removed`);
+}
+
+function clearRegs(eid){showModal('Clear All','Delete all registrations for this event?','',`<button class="btn btn-danger" onclick="confirmClear('${eid}')">Yes</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);}
+function confirmClear(eid){const ev=getEvent(eid);ev.registrations=[];state.partnerRequests=state.partnerRequests.filter(r=>r.eventId!==eid);saveState();closeModal();renderAdminContent();renderStats();toast('Cleared');}
+function deleteEvent(eid){showModal('Delete Event','Permanently delete this event?','',`<button class="btn btn-danger" onclick="confirmDelete('${eid}')">Delete</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);}
+function confirmDelete(eid){state.events=state.events.filter(e=>e.id!==eid);state.partnerRequests=state.partnerRequests.filter(r=>r.eventId!==eid);saveState();closeModal();renderAdminContent();renderStats();if(currentView==='home')renderEventList();toast('Deleted');}
+
+function getConfirmedPairs(ev){
+  const pairs=[];
+  ev.registrations.forEach(reg=>{
+    if(!reg.pairConfirmed)return;
+    if(reg.partner&&reg.partner.status==='accepted') pairs.push([reg,{fname:reg.partner.fname,lname:reg.partner.lname,level:reg.level,category:reg.category,id:reg.id+'_p',assignedCourt:reg.assignedCourt}]);
+    else if(!reg.partner) pairs.push([reg]);
+  });
+  return pairs;
+}
+
+function generateLineup(eid){
+  const ev=getEvent(eid),pairs=getConfirmedPairs(ev);
+  const el=document.getElementById('lineup-'+eid);
+  if(pairs.length<2){el.innerHTML=`<div class="empty" style="padding:10px;font-size:12px">Need 2+ confirmed pairs.</div>`;return;}
+  el.innerHTML='<div style="height:8px"></div>'+(ev.activeFormat==='Americano'?buildAmericano(pairs,ev):buildDoubles(pairs,ev));
+  toast('⚡ Lineup generated!');
+}
+
+function buildDoubles(pairs,ev){
+  const s=[...pairs].sort(()=>Math.random()-.5);
+  s.forEach((p,i)=>{if(!p[0].assignedCourt&&ev.courts.length)p[0].assignedCourt=ev.courts[i%ev.courts.length];});
+  const m=[];
+  for(let i=0;i<s.length-1;i+=2)m.push({a:s[i],b:s[i+1],court:s[i][0].assignedCourt||(ev.courts[Math.floor(i/2)]||`Court ${Math.floor(i/2)+1}`)});
+  if(s.length%2!==0)m.push({a:s[s.length-1],b:null,court:s[s.length-1][0].assignedCourt||'TBD'});
+  return `<div class="lineup-wrap"><div class="lineup-round">📋 ${ev.name} — DOUBLES</div>${m.map(x=>`<div class="match-row"><div class="match-court">${x.court}</div><div class="match-teams"><span>${pN(x.a)}</span><span class="match-vs">VS</span><span>${x.b?pN(x.b):'<em style="color:var(--gray)">BYE</em>'}</span></div></div>`).join('')}</div>`;
+}
+
+function buildAmericano(pairs,ev){
+  const players=[];pairs.forEach(p=>{players.push(`${p[0].fname} ${p[0].lname}`);if(p[1])players.push(`${p[1].fname} ${p[1].lname}`);});
+  const rounds=Math.min(Math.max(3,players.length-1),6);
+  let html=`<div class="lineup-wrap"><div class="lineup-round">🔄 ${ev.name} — AMERICANO</div><div style="font-size:11px;color:var(--gray);margin-bottom:8px">Partners rotate every round</div>`;
+  for(let r=1;r<=rounds;r++){
+    html+=`<div class="round-label">Round ${r}</div>`;
+    const rp=[...players].sort(()=>Math.random()-.5);
+    const maxC=Math.min(ev.courts.length||1,Math.floor(rp.length/4));
+    for(let c=0;c<maxC;c++){const idx=c*4;if(idx+3>=rp.length)break;html+=`<div class="match-row"><div class="match-court">${ev.courts[c]||`Court ${c+1}`}</div><div class="match-teams"><span>${rp[idx]} &amp; ${rp[idx+1]}</span><span class="match-vs">VS</span><span>${rp[idx+2]} &amp; ${rp[idx+3]}</span></div></div>`;}
+  }
+  return html+'</div>';
+}
+
+function pN(p){if(!p)return'';return`${p[0].fname} ${p[0].lname}${p[1]?` &amp; ${p[1].fname} ${p[1].lname}`:''}`;}
+function pNP(p){if(!p)return'';return`${p[0].fname} ${p[0].lname}${p[1]?` & ${p[1].fname} ${p[1].lname}`:''}`;}
+
+function postLineupWA(eid){
+  const ev=getEvent(eid),pairs=getConfirmedPairs(ev);
+  if(pairs.length<2){toast('⚠️ Need 2+ confirmed pairs');return;}
+  const s=[...pairs].sort(()=>Math.random()-.5);
+  const tL=ev.type==='game'?'🎮 GAME':'🏆 TOURNAMENT';
+  let msg=`🎾🍺 *PADEL CERVEJA & PETISCOS*\n*${ev.name.toUpperCase()} — ${tL} LINEUP*\n📅 ${fmtDate(ev.date)} · ${ev.time}\n🔖 Format: *${ev.activeFormat}*\n`;
+  if(ev.courts.length)msg+=`🏟 Courts: ${ev.courts.join(' · ')}\n`;
+  msg+=`━━━━━━━━━━━━━━━━━━\n\n`;
+  if(ev.activeFormat==='Americano'){
+    msg+=`🔄 *AMERICANO* — partners rotate!\n\n*Players:*\n`;let n=1;
+    pairs.forEach(p=>{msg+=`${n++}. ${p[0].fname} ${p[0].lname}\n`;if(p[1])msg+=`${n++}. ${p[1].fname} ${p[1].lname}\n`;});
+    if(ev.courts.length){msg+=`\n*Courts:*\n`;ev.courts.forEach((c,i)=>msg+=`  ${i+1}. ${c}\n`);}
+  } else {
+    msg+=`🏅 *DOUBLES MATCHES:*\n\n`;
+    for(let i=0;i<s.length-1;i+=2){const court=s[i][0].assignedCourt||(ev.courts[Math.floor(i/2)]||`Court ${Math.floor(i/2)+1}`);msg+=`🏟 *${court}*\n${pNP(s[i])}\n  vs\n${pNP(s[i+1])}\n\n`;}
+    if(s.length%2!==0)msg+=`⚡ *BYE:* ${pNP(s[s.length-1])}\n`;
+  }
+  msg+=`\n━━━━━━━━━━━━━━━━━━\nGood luck! 🏆🍺`;
+  window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,'_blank');
+  toast('📤 Lineup sent to WhatsApp!');
+}
+
+// ════════════════════════════════════
+// CREATE EVENT MODAL
+// ════════════════════════════════════
+let _createType='tournament',_createCourts=[];
+function openCreateModal(){
+  _createType='tournament';_createCourts=[];
+  const body=`
+  <div class="csect"><div class="csect-title">Type</div><div style="display:flex;gap:8px"><div class="mode-btn active" id="ct-tournament" onclick="setCT('tournament')" style="padding:10px"><div class="mb-icon" style="font-size:18px">🏆</div><div class="mb-title" style="font-size:13px">Tournament</div></div><div class="mode-btn" id="ct-game" onclick="setCT('game')" style="padding:10px"><div class="mb-icon" style="font-size:18px">🎮</div><div class="mb-title" style="font-size:13px">Game</div></div></div></div>
+  <div class="csect"><div class="csect-title">Details</div>
+    <div class="fg" style="margin-bottom:9px"><label>Name</label><input id="ce-name" placeholder="e.g. Friday Night Padel"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px"><div class="fg"><label>Date</label><input id="ce-date" type="date" value="${daysFromNow(3)}"></div><div class="fg"><label>Time</label><input id="ce-time" placeholder="19:00–22:00"></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px"><div class="fg"><label>Max Players</label><input id="ce-cap" type="number" value="8" min="2" max="64"></div><div class="fg"><label>Prize / Note</label><input id="ce-prize" placeholder="🍺 Free beers"></div></div>
+  </div>
+  <div class="csect"><div class="csect-title">Formats</div>
+    <div style="display:flex;gap:12px;margin-bottom:10px">
+      <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--white)"><input type="checkbox" id="ce-dbl" checked style="width:auto;padding:0;accent-color:var(--gold)"> 🏅 Doubles</label>
+      <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--white)"><input type="checkbox" id="ce-amr" style="width:auto;padding:0;accent-color:var(--gold)"> 🔄 Americano</label>
+    </div>
+    <div class="fg"><label>Default Format</label><select id="ce-fmt"><option value="Doubles">Doubles</option><option value="Americano">Americano</option></select></div>
+  </div>
+  <div class="csect"><div class="csect-title">Courts</div>
+    <div class="court-tags-wrap" id="ce-court-tags"></div>
+    <div class="add-court-row"><input id="ce-ci" placeholder="Court name…" onkeydown="if(event.key==='Enter')addCreateCourt()"><button class="btn btn-gold btn-sm" onclick="addCreateCourt()">+ Add</button></div>
+  </div>`;
+  showModal('Create Event','',body,`<button class="btn btn-gold" onclick="confirmCreate()">✅ Create</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>`);
+}
+function setCT(t){_createType=t;document.getElementById('ct-tournament').classList.toggle('active',t==='tournament');document.getElementById('ct-game').classList.toggle('active',t==='game');}
+function addCreateCourt(){const inp=document.getElementById('ce-ci');const n=(inp.value||'').trim();if(!n)return;if(_createCourts.includes(n)){toast('Already added');return;}_createCourts.push(n);inp.value='';renderCreateTags();}
+function rmCreateCourt(i){_createCourts.splice(i,1);renderCreateTags();}
+function renderCreateTags(){const el=document.getElementById('ce-court-tags');if(!el)return;el.innerHTML=_createCourts.map((c,i)=>`<span class="court-tag">${c}<button class="court-tag-del" onclick="rmCreateCourt(${i})">×</button></span>`).join('');}
+function confirmCreate(){
+  const name=(document.getElementById('ce-name').value||'').trim();
+  const date=document.getElementById('ce-date').value;
+  const time=(document.getElementById('ce-time').value||'').trim()||'TBD';
+  const cap=parseInt(document.getElementById('ce-cap').value)||8;
+  const prize=(document.getElementById('ce-prize').value||'').trim();
+  const dbl=document.getElementById('ce-dbl').checked,amr=document.getElementById('ce-amr').checked;
+  const activeFmt=document.getElementById('ce-fmt').value;
+  if(!name){toast('⚠️ Enter a name');return;}
+  if(!date){toast('⚠️ Pick a date');return;}
+  if(!dbl&&!amr){toast('⚠️ Select a format');return;}
+  const formats=[];if(dbl)formats.push('Doubles');if(amr)formats.push('Americano');
+  state.events.push({id:'e_'+Date.now(),type:_createType,name,date,time,capacity:cap,prize,formats,activeFormat:formats.includes(activeFmt)?activeFmt:formats[0],courts:[..._createCourts],registrations:[]});
+  saveState();closeModal();renderAdminContent();renderStats();
+  if(currentView==='home')renderEventList();
+  toast(`✅ "${name}" created!`);
+}
+
+// ════════════════════════════════════
+// DEMO SEED
+// ════════════════════════════════════
+function seedDemo(){
+  const ev=getEvent('e1');
+  if(ev&&ev.registrations.length===0){
+    ev.registrations.push(
+      {id:'d1',fname:'Benno',lname:'Fischer',phone:'611001',cc:'34',level:'Advanced',category:"Men's Doubles",memberId:null,partner:{fname:'Pablito',lname:'Ruiz',phone:'611002',cc:'34',status:'accepted',registeredId:'d2'},pairConfirmed:true,assignedCourt:'Top Court',registeredAt:new Date().toISOString()},
+      {id:'d2',fname:'Pablito',lname:'Ruiz',phone:'611002',cc:'34',level:'Advanced',category:"Men's Doubles",memberId:null,partner:null,pairConfirmed:true,assignedCourt:'Top Court',registeredAt:new Date().toISOString()},
+      {id:'d3',fname:'João',lname:'Silva',phone:'611003',cc:'351',level:'Advanced',category:"Men's Doubles",memberId:null,partner:{fname:'Reinout',lname:'Berg',phone:'611004',cc:'31',status:'accepted',registeredId:'d4'},pairConfirmed:true,assignedCourt:'Outside Court',registeredAt:new Date().toISOString()},
+      {id:'d4',fname:'Reinout',lname:'Berg',phone:'611004',cc:'31',level:'Advanced',category:"Men's Doubles",memberId:null,partner:null,pairConfirmed:true,assignedCourt:'Outside Court',registeredAt:new Date().toISOString()},
+      {id:'d5',fname:'Alex',lname:'Martin',phone:'611005',cc:'33',level:'Intermediate',category:"Men's Doubles",memberId:null,partner:{fname:'Juan',lname:'García',phone:'611006',cc:'34',status:'pending',registeredId:'d6'},pairConfirmed:false,registeredAt:new Date().toISOString()},
+      {id:'d6',fname:'Juan',lname:'García',phone:'611006',cc:'34',level:'Intermediate',category:"Men's Doubles",memberId:null,partner:null,pairConfirmed:true,registeredAt:new Date().toISOString()}
+    );
+    state.partnerRequests.push({id:'pr1',eventId:'e1',eventName:'Cerveja Open',eventType:'tournament',eventDate:ev.date,fromName:'Alex Martin',fromPhone:'33611005',toName:'Juan García',toPhone:'34611006',playerId:'d5',status:'pending',createdAt:new Date().toISOString()});
+    saveState();
+  }
+}
+
+seedDemo();
+updateNavAvatar();
+renderHomeView();
+</script>
+</body>
+</html>
