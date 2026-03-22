@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padel Cerveja — Airtable Setup</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e0e0e;--surface:#181818;--s2:#212121;--border:rgba(255,255,255,0.08);--gold:#f5c518;--gd:rgba(245,197,24,0.13);--gb:rgba(245,197,24,0.25);--white:#f5f0e8;--gray:#887a68;--green:#4ecf7a;--red:#f05a5a;--r:16px;--rs:10px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--white);font-family:'Outfit',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 90% 5%,rgba(245,197,24,.07) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 5% 95%,rgba(245,197,24,.04) 0%,transparent 60%)}
+.card{background:var(--surface);border:1.5px solid var(--gb);border-radius:var(--r);padding:28px;width:100%;max-width:480px;position:relative;z-index:1}
+.logo{text-align:center;margin-bottom:20px}
+.logo-icon{font-size:40px;margin-bottom:6px}
+.logo h1{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--gold);letter-spacing:2px}
+.logo p{font-size:12px;color:var(--gray);margin-top:4px}
+.step{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--gold);color:#0e0e0e;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;line-height:1.5;color:var(--gray)}
+.step-text b{color:var(--white)}
+label{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-bottom:6px;margin-top:16px}
+input{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--rs);padding:12px 14px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+input:focus{border-color:rgba(245,197,24,.5)}
+input::placeholder{color:rgba(255,255,255,.2)}
+.btn-setup{width:100%;padding:15px;margin-top:16px;background:var(--gold);color:#0e0e0e;border:none;border-radius:var(--rs);font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-setup:hover{background:#ffe055;transform:translateY(-1px)}
+.btn-setup:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.log{margin-top:16px;background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:14px;max-height:300px;overflow-y:auto;display:none}
+.log-item{font-size:12px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);line-height:1.4;display:flex;align-items:flex-start;gap:8px}
+.log-item:last-child{border-bottom:none}
+.log-item.ok{color:#4ecf7a}
+.log-item.err{color:var(--red)}
+.log-item.info{color:var(--gray)}
+.log-item.head{color:var(--gold);font-weight:700}
+.log-ico{flex-shrink:0;width:16px;text-align:center}
+.success-box{text-align:center;padding:20px 0 8px;display:none}
+.success-box .s-ico{font-size:48px;margin-bottom:10px}
+.success-box h2{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);letter-spacing:1px}
+.success-box p{font-size:13px;color:var(--gray);margin-top:6px;line-height:1.6}
+.copy-box{background:var(--s2);border:1.5px solid var(--gb);border-radius:var(--rs);padding:12px;margin-top:14px;font-size:12px}
+.copy-box .copy-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
+.copy-val{font-family:monospace;color:var(--gold);font-size:13px;word-break:break-all;cursor:pointer;padding:6px 8px;background:var(--bg);border-radius:6px;display:block;margin-top:4px}
+.copy-val:hover{background:rgba(245,197,24,.08)}
+.copy-hint{font-size:10px;color:var(--gray);margin-top:4px}
+.divider{height:1px;background:var(--border);margin:18px 0}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <div class="logo-icon">🎾🍺</div>
+    <h1>AIRTABLE SETUP</h1>
+    <p>Padel Cerveja &amp; Petiscos · Database Creator</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">Go to <b>airtable.com/create/tokens</b>, create a token with scopes: <b>data.records:read, data.records:write, schema.bases:read, schema.bases:write</b> and access to <b>All bases</b>.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">Paste your token below and click <b>Create My Database</b>. This will create a new Airtable base called "Padel Cerveja" with all 4 tables fully configured.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">Copy the <b>Base ID</b> and <b>API Token</b> shown after setup and paste them into the Padel app.</div>
+  </div>
+
+  <div id="form-section">
+    <label>Your Airtable API Token</label>
+    <input type="text" id="token-input" placeholder="pat..." autocomplete="off" spellcheck="false">
+    <button class="btn-setup" onclick="runSetup()" id="setup-btn">🚀 Create My Database</button>
+  </div>
+
+  <div class="log" id="log"></div>
+  <div class="success-box" id="success-box"></div>
+</div>
+
+<script>
+const TABLES = [
+  {
+    name: 'Members',
+    fields: [
+      { name:'First Name',    type:'singleLineText' },
+      { name:'Last Name',     type:'singleLineText' },
+      { name:'Phone',         type:'singleLineText' },
+      { name:'Country Code',  type:'singleLineText' },
+      { name:'Level',         type:'singleSelect', options:{ choices:[{name:'Beginner'},{name:'Intermediate'},{name:'Advanced'},{name:'Pro'}] }},
+      { name:'Preferred Category', type:'singleSelect', options:{ choices:[{name:"Men's Doubles"},{name:"Women's Doubles"},{name:'Mixed Doubles'}] }},
+      { name:'Password Hash', type:'singleLineText' },
+      { name:'Joined At',     type:'singleLineText' }
+    ]
+  },
+  {
+    name: 'Events',
+    fields: [
+      { name:'Name',          type:'singleLineText' },
+      { name:'Type',          type:'singleSelect', options:{ choices:[{name:'tournament'},{name:'game'}] }},
+      { name:'Date',          type:'singleLineText' },
+      { name:'Time',          type:'singleLineText' },
+      { name:'Capacity',      type:'number', options:{ precision:0 } },
+      { name:'Prize',         type:'singleLineText' },
+      { name:'Active Format', type:'singleSelect', options:{ choices:[{name:'Doubles'},{name:'Americano'}] }},
+      { name:'Formats',       type:'singleLineText' },
+      { name:'Courts',        type:'multilineText' },
+      { name:'Status',        type:'singleSelect', options:{ choices:[{name:'open'},{name:'closed'}] }},
+      { name:'Created By',    type:'singleLineText' },
+      { name:'Created By Phone', type:'singleLineText' }
+    ]
+  },
+  {
+    name: 'Registrations',
+    fields: [
+      { name:'Event ID',       type:'singleLineText' },
+      { name:'Event Name',     type:'singleLineText' },
+      { name:'First Name',     type:'singleLineText' },
+      { name:'Last Name',      type:'singleLineText' },
+      { name:'Phone',          type:'singleLineText' },
+      { name:'Country Code',   type:'singleLineText' },
+      { name:'Level',          type:'singleSelect', options:{ choices:[{name:'Beginner'},{name:'Intermediate'},{name:'Advanced'},{name:'Pro'}] }},
+      { name:'Category',       type:'singleSelect', options:{ choices:[{name:"Men's Doubles"},{name:"Women's Doubles"},{name:'Mixed Doubles'}] }},
+      { name:'Member ID',      type:'singleLineText' },
+      { name:'Pair Confirmed', type:'checkbox', options:{ icon:'check', color:'greenBright' } },
+      { name:'Assigned Court', type:'singleLineText' },
+      { name:'Partner Name',   type:'singleLineText' },
+      { name:'Partner Phone',  type:'singleLineText' },
+      { name:'Partner CC',     type:'singleLineText' },
+      { name:'Partner Status', type:'singleSelect', options:{ choices:[{name:'pending'},{name:'accepted'},{name:'declined'}] }},
+      { name:'Partner Reg ID', type:'singleLineText' },
+      { name:'Is Organiser',   type:'checkbox', options:{ icon:'check', color:'yellowBright' } },
+      { name:'Added By Admin', type:'checkbox', options:{ icon:'check', color:'blueBright' } },
+      { name:'Registered At',  type:'singleLineText' }
+    ]
+  },
+  {
+    name: 'Partner Requests',
+    fields: [
+      { name:'Event ID',    type:'singleLineText' },
+      { name:'Event Name',  type:'singleLineText' },
+      { name:'Event Type',  type:'singleLineText' },
+      { name:'Event Date',  type:'singleLineText' },
+      { name:'From Name',   type:'singleLineText' },
+      { name:'From Phone',  type:'singleLineText' },
+      { name:'To Name',     type:'singleLineText' },
+      { name:'To Phone',    type:'singleLineText' },
+      { name:'Player ID',   type:'singleLineText' },
+      { name:'Status',      type:'singleSelect', options:{ choices:[{name:'pending'},{name:'accepted'},{name:'declined'}] }},
+      { name:'Created At',  type:'singleLineText' }
+    ]
+  }
+];
+
+function log(msg, type='info') {
+  const el = document.getElementById('log');
+  el.style.display = 'block';
+  const icons = { ok:'✅', err:'❌', info:'⏳', head:'🎾' };
+  el.innerHTML += `<div class="log-item ${type}"><span class="log-ico">${icons[type]||'·'}</span><span>${msg}</span></div>`;
+  el.scrollTop = el.scrollHeight;
+}
+
+async function runSetup() {
+  const token = (document.getElementById('token-input').value || '').trim();
+  if (!token || !token.startsWith('pat')) {
+    alert('Please enter a valid Airtable token (starts with "pat")');
+    return;
+  }
+
+  const btn = document.getElementById('setup-btn');
+  btn.disabled = true;
+  btn.textContent = 'Setting up…';
+  document.getElementById('log').innerHTML = '';
+  document.getElementById('log').style.display = 'block';
+  document.getElementById('success-box').style.display = 'none';
+
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  };
+
+  try {
+    // Step 1: Create the base
+    log('Creating "Padel Cerveja" base…', 'info');
+
+    // First we need a workspace ID
+    const wsRes = await fetch('https://api.airtable.com/v0/meta/workspaces', { headers });
+    if (!wsRes.ok) {
+      const e = await wsRes.json();
+      throw new Error(`Could not get workspaces: ${e.error?.message || wsRes.status}. Check your token has schema.bases:write scope.`);
+    }
+    const wsData = await wsRes.json();
+    const workspaceId = wsData.workspaces?.[0]?.id;
+    if (!workspaceId) throw new Error('No workspace found. Make sure your token has access to All bases.');
+    log(`Workspace found: ${wsData.workspaces[0].name}`, 'ok');
+
+    // Create the base with the first table
+    log('Creating base with Members table…', 'info');
+    const baseRes = await fetch('https://api.airtable.com/v0/meta/bases', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        name: 'Padel Cerveja',
+        workspaceId,
+        tables: [{
+          name: TABLES[0].name,
+          fields: [
+            { name: 'Name', type: 'singleLineText' },
+            ...TABLES[0].fields
+          ]
+        }]
+      })
+    });
+
+    if (!baseRes.ok) {
+      const e = await baseRes.json();
+      throw new Error(`Failed to create base: ${e.error?.message || JSON.stringify(e)}`);
+    }
+
+    const baseData = await baseRes.json();
+    const baseId = baseData.id;
+    log(`Base created! ID: ${baseId}`, 'ok');
+
+    // Get the first table ID to update its fields
+    const firstTableId = baseData.tables?.[0]?.id;
+    log(`Members table ready`, 'ok');
+
+    // Step 2: Create remaining 3 tables
+    for (let i = 1; i < TABLES.length; i++) {
+      const table = TABLES[i];
+      log(`Creating "${table.name}" table…`, 'info');
+      const tRes = await fetch(`https://api.airtable.com/v0/meta/bases/${baseId}/tables`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          name: table.name,
+          fields: [
+            { name: 'Name', type: 'singleLineText' },
+            ...table.fields
+          ]
+        })
+      });
+      if (!tRes.ok) {
+        const e = await tRes.json();
+        throw new Error(`Failed to create table "${table.name}": ${e.error?.message || tRes.status}`);
+      }
+      log(`"${table.name}" table created ✓`, 'ok');
+      await sleep(300); // small delay to avoid rate limits
+    }
+
+    log('All 4 tables created successfully!', 'head');
+
+    // Show success
+    showSuccess(baseId, token);
+
+  } catch(err) {
+    log(`Error: ${err.message}`, 'err');
+    btn.disabled = false;
+    btn.textContent = '🚀 Create My Database';
+  }
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function showSuccess(baseId, token) {
+  const box = document.getElementById('success-box');
+  box.style.display = 'block';
+  box.innerHTML = `
+    <div class="s-ico">🎉</div>
+    <h2>ALL DONE!</h2>
+    <p>Your Airtable database is ready.<br>Copy these two values into the Padel app:</p>
+
+    <div class="copy-box" style="margin-top:16px">
+      <div class="copy-label">Base ID</div>
+      <div class="copy-val" onclick="copyText('${baseId}',this)" title="Click to copy">${baseId}</div>
+      <div class="copy-hint">Click to copy</div>
+    </div>
+
+    <div class="copy-box">
+      <div class="copy-label">API Token</div>
+      <div class="copy-val" onclick="copyText('${token}',this)" title="Click to copy">${token.slice(0,12)}…${token.slice(-6)}</div>
+      <div class="copy-hint">Click to copy · Token is partially hidden for security</div>
+    </div>
+
+    <div style="background:rgba(78,207,122,.1);border:1px solid rgba(78,207,122,.3);border-radius:var(--rs);padding:12px;margin-top:14px;font-size:12px;color:#4ecf7a;line-height:1.6">
+      <b>Next step:</b> Open the Padel app, paste these two values when prompted, and your app will be connected to Airtable. All data will sync in real time! 🚀
+    </div>
+
+    <a href="https://airtable.com" target="_blank" style="display:block;margin-top:12px;padding:11px;background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);color:var(--gold);text-decoration:none;font-size:13px;font-weight:600;text-align:center">
+      Open Airtable to see your database →
+    </a>
+  `;
+
+  document.getElementById('setup-btn').textContent = '✅ Done!';
+}
+
+function copyText(text, el) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = el.textContent;
+    el.textContent = 'Copied!';
+    el.style.color = '#4ecf7a';
+    setTimeout(() => { el.textContent = orig; el.style.color = ''; }, 1500);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    el.textContent = 'Copied!';
+    el.style.color = '#4ecf7a';
+    setTimeout(() => location.reload(), 1500);
+  });
+}
+</script>
+</body>
+</html>
