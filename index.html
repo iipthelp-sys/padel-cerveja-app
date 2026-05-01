@@ -2078,7 +2078,7 @@ async function submitSignup() {
 
   // Level filter check
   if (ev.minLevel) {
-    const levels = ['Beginner','Intermediate','Advanced','Pro'];
+    const levels = ['Beginner','Intermediate','Intermediate +','Advanced','Advanced +','Federation','Federation +'];
     const minIdx = levels.indexOf(ev.minLevel);
     const myIdx  = levels.indexOf(profile ? profile.level : '');
     if (myIdx < minIdx) {
@@ -2564,7 +2564,7 @@ function renderMembersSection(searchTerm) {
   const evCounts = {};
   state.events.forEach(ev => ev.registrations.forEach(r => { if (r.memberId) evCounts[r.memberId] = (evCounts[r.memberId] || 0) + 1; }));
 
-  const levelOpts = ['Beginner','Intermediate','Advanced','Pro'];
+  const levelOpts = ['Beginner','Intermediate','Intermediate +','Advanced','Advanced +','Federation','Federation +'];
   const sideOpts  = ['','Left','Right'];
 
   const rows = page.map(m => {
