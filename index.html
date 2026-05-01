@@ -1305,7 +1305,7 @@ function openEditProfile() {
       <div class="fg"><label>Last Name</label><input id="ep-lname" value="${profile.lname}"></div>
     </div>
     <div class="frow" style="margin-bottom:9px">
-      <div class="fg"><label>Level</label><select id="ep-level"><option value="">…</option>${['Beginner','Intermediate','Advanced','Pro'].map(l=>`<option ${profile.level===l?'selected':''}>${l}</option>`).join('')}</select></div>
+      <div class="fg"><label>Level</label><select id="ep-level"><option value="">…</option>${['Beginner','Intermediate','Intermediate +','Advanced','Advanced +','Federation','Federation +'].map(l=>`<option ${profile.level===l?'selected':''}>${l}</option>`).join('')}</select></div>
       <div class="fg"><label>Preferred Category</label><select id="ep-cat"><option value="">…</option>${["Mens Doubles","Womens Doubles","Mixed Doubles"].map(c=>`<option ${profile.preferredCat===c?'selected':''}>${c}</option>`).join('')}</select></div>
     </div>
     <div class="fg" style="margin-bottom:9px">
@@ -2416,8 +2416,7 @@ function openAddMemberModal() {
         <label>Skill Level</label>
         <select id="am-level">
           <option value="">Select…</option>
-          <option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>Pro</option>
-        </select>
+          <option>Beginner</option><option>Intermediate</option><option>Intermediate +</option><option>Advanced</option><option>Advanced +</option><option>Federation</option><option>Federation +</option></select>        </select>
       </div>
       <div class="fg">
         <label>Preferred Category</label>
