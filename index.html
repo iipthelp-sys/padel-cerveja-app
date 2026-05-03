@@ -3288,7 +3288,7 @@ function openAddPlayerModal(eid){
     '<div class="slabel">Manual Entry</div>' +
     '<div class="frow" style="margin-bottom:9px"><div class="fg"><label>First Name</label><input id="ap-fname" placeholder="Maria"></div><div class="fg"><label>Last Name</label><input id="ap-lname" placeholder="Sanchez"></div></div>' +
     '<div class="fg" style="margin-bottom:9px"><label>WhatsApp</label><div class="phone-row"><select class="cc" id="ap-cc"><option value="34" selected>🇪🇸 +34</option><option value="351">🇵🇹 +351</option><option value="44">🇬🇧 +44</option><option value="1">🇺🇸 +1</option><option value="33">🇫🇷 +33</option><option value="49">🇩🇪 +49</option></select><input id="ap-phone" placeholder="612 345 678" type="tel"></div></div>' +
-    '<div class="frow"><div class="fg"><label>Level</label><select id="ap-level"><option value="">…</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>Pro</option></select></div><div class="fg"><label>Category</label><select id="ap-cat"><option value="">…</option><option>Mens Doubles</option><option>Womens Doubles</option><option>Mixed Doubles</option></select></div></div>',
+    '<div class="frow"><div class="fg"><label>Level</label><select id="ap-level"><option value="">…</option><option>Beginner</option><option>Intermediate</option><option>Intermediate +</option><option>Advanced</option><option>Advanced +</option><option>Federation</option><option>Federation +</option></select></div><div class="fg"><label>Category</label><select id="ap-cat"><option value="">…</option><option>Mens Doubles</option><option>Womens Doubles</option><option>Mixed Doubles</option></select></div></div>',
     '<button class="btn btn-gold" onclick="confirmAddPlayer(\'' + eid + '\')">✅ Add Manually</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button>'
   );
   window._addPlayerEid = eid;
@@ -3891,7 +3891,7 @@ function openAddGameModal(){
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px">' +
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px">' +
     '<div class="fg"><label>Format</label><select id="ag-fmt"><option value="Doubles">🏅 Doubles</option><option value="Americano">🔄 Americano</option></select></div>' +
-    '<div class="fg"><label>Min Level</label><select id="ag-minlevel"><option value="">Any level</option><option value="Beginner">Beginner+</option><option value="Intermediate">Intermediate+</option><option value="Advanced">Advanced+</option><option value="Pro">Pro only</option></select></div></div>' +
+    '<div class="fg"><label>Min Level</label><select id="ag-minlevel"><option value="">Any level</option><option value="Beginner">Beginner+</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option><option value="Federation">Federation only</option></select></div></div>' +
     '<label for="ag-approval" style="display:flex;align-items:flex-start;gap:12px;background:var(--s2);border-radius:var(--rs);padding:12px 13px;cursor:pointer;border:1.5px solid var(--border)">' +
     '<input type="checkbox" id="ag-approval" style="width:20px;height:20px;accent-color:var(--gold);flex-shrink:0;margin-top:1px">' +
     '<div><div style="font-size:13px;font-weight:600">Approve sign-ups manually</div>' +
